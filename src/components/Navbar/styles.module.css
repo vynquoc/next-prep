@@ -23,8 +23,8 @@
     margin-left: 50px;
 }
 
-.link {
-    margin-left: 20px;
+.link:not(:first-child) {
+    margin-left: 35px;
 }
 
 .link:hover {
