@@ -6,7 +6,7 @@ export const createQuiz = async ({
   title,
   prompt,
   choices,
-  correctAnswer,
+  correctAnswers,
   kind,
 }: QuizInterface) => {
   const quiz = await prisma.quiz.create({
@@ -14,7 +14,7 @@ export const createQuiz = async ({
       title,
       prompt,
       choices,
-      correctAnswer,
+      correctAnswers,
       kind,
     },
   });

@@ -3,7 +3,6 @@ import { FormEvent, useState } from "react";
 import FormField from "@/components/FormField";
 import CheckBox from "@/components/CheckBox";
 import { QuizForm, QuizInterface } from "@/common/types";
-import { POST } from "@/app/api/quiz/route";
 
 type Props = {
   quiz?: QuizInterface;
@@ -14,7 +13,7 @@ const QuizForm = ({ quiz }: Props) => {
     prompt: quiz?.prompt || "",
     kind: quiz?.kind || "single",
     choices: quiz?.choices || ["", "", "", ""],
-    correctAnswer: quiz?.correctAnswer || [],
+    correctAnswers: quiz?.correctAnswers || [],
   });
 
   const handleChange = (name: keyof QuizForm, value: string) => {
@@ -30,13 +29,13 @@ const QuizForm = ({ quiz }: Props) => {
   };
 
   const handleCorrectAnswers = (index: number) => {
-    let newValue = form.correctAnswer;
-    if (form.correctAnswer.includes(index)) {
+    let newValue = form.correctAnswers;
+    if (form.correctAnswers.includes(index)) {
       newValue = newValue.filter((number) => number !== index);
     } else {
-      newValue = [...form.correctAnswer, index];
+      newValue = [...form.correctAnswers, index];
     }
-    setForm({ ...form, correctAnswer: newValue });
+    setForm({ ...form, correctAnswers: newValue });
   };
 
   const handleAddAnswer = () => {
@@ -53,7 +52,6 @@ const QuizForm = ({ quiz }: Props) => {
       body: JSON.stringify(form),
     });
     const quiz = await response.json();
-    console.log(quiz);
   };
 
   return (
@@ -90,7 +88,7 @@ const QuizForm = ({ quiz }: Props) => {
           />
           <CheckBox
             label="Correct answer"
-            checked={form.correctAnswer.includes(index)}
+            checked={form.correctAnswers.includes(index)}
             onChange={() => handleCorrectAnswers(index)}
           />
         </div>

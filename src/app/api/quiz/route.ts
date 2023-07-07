@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { createQuiz, getAllQuizzes } from "../../../../prisma/quiz";
+import { createQuiz, getAllQuizzes } from "@/prisma/quiz";
 
 export async function GET() {
   const quizzes = await getAllQuizzes();
-  return NextResponse.json(quizzes);
+  return new Response(JSON.stringify(quizzes), { status: 200 });
 }
 export async function POST(request: Request) {
   try {
