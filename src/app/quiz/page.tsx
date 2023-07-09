@@ -3,12 +3,24 @@ import { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import QuizResult from "@/components/QuizResult";
 import ChoiceList from "@/components/ChoiceList";
-import { QuizInterface } from "@/common/types";
+import { QuizInterface } from "@/types/types";
 
 const QuizPage = () => {
+  const [questionList, setQuestionList] = useState<QuizInterface[] | null>(
+    null
+  );
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [answers, setAnwsers] = useState<any>({});
   const [done, setDone] = useState(false);
+
+  useEffect(() => {
+    const getQuizzes = async () => {
+      const response = await fetch("/api/quiz");
+      const quizzes = await response.json();
+      setQuestionList(quizzes);
+    };
+    getQuizzes();
+  }, []);
 
   const handleSelectQuestion = (index: number) => {
     setSelectedIndex(index);
@@ -29,11 +41,15 @@ const QuizPage = () => {
   };
 
   if (done) {
-    return <QuizResult questionList={dummyData} chosenAnswers={answers} />;
+    return <QuizResult questionList={questionList} chosenAnswers={answers} />;
   }
 
-  const selectedQuestion = dummyData[selectedIndex];
-  const progress = `${Object.keys(answers).length} / ${dummyData.length}`;
+  if (questionList == null) {
+    return <div>Loading...</div>;
+  }
+
+  const selectedQuestion = questionList[selectedIndex];
+  const progress = `${Object.keys(answers).length} / ${questionList.length}`;
 
   return (
     <div className={styles.container}>
@@ -41,7 +57,7 @@ const QuizPage = () => {
         <div className={styles.questionListContainer}>
           <p>Progress {progress}</p>
           <ul>
-            {dummyData.map((question, index) => (
+            {questionList.map((question, index) => (
               <li
                 className={
                   selectedIndex === index ? styles.selectedQuestion : ""
@@ -68,14 +84,14 @@ const QuizPage = () => {
           </button>
           <button
             onClick={handleNext}
-            disabled={selectedIndex === dummyData.length - 1}
+            disabled={selectedIndex === questionList.length - 1}
           >
             next
           </button>
         </div>
         <button
           onClick={() => setDone(true)}
-          disabled={Object.keys(answers).length !== dummyData.length}
+          disabled={Object.keys(answers).length !== questionList.length}
         >
           Submit
         </button>
@@ -85,56 +101,3 @@ const QuizPage = () => {
 };
 
 export default QuizPage;
-
-const dummyData: QuizInterface[] = [
-  {
-    id: "rweeewr",
-    title: "What is the output of this code 1 ?",
-    prompt: `function logger() {
-        console.log("output 1")
-    }`,
-    choices: ["output 1", "output 2", "output 3", "output 4"],
-    correctAnswers: [0],
-    kind: "single",
-  },
-  {
-    id: "rweeewr33",
-    title: "What is the output of this code 2 ?",
-    prompt: `function logger() {
-        console.log("output 2")
-    }`,
-    choices: ["output 1", "output 2", "output 3", "output 4"],
-    correctAnswers: [1],
-    kind: "single",
-  },
-  {
-    id: "rweeewr333",
-    title: "What is the output of this code 3 ?",
-    prompt: `function logger() {
-        console.log("output 3")
-    }`,
-    choices: ["output 1", "output 2", "output 3", "output 4"],
-    correctAnswers: [2],
-    kind: "single",
-  },
-  {
-    id: "rweeewr555",
-    title: "What is the output of this code 4 ?",
-    prompt: `function logger() { 
-        console.log("output 4")
-    }`,
-    choices: ["output 1", "output 2", "output 3", "output 4"],
-    correctAnswers: [3],
-    kind: "single",
-  },
-  {
-    id: "rweeewr42434",
-    title: "What is the output of this code 4 ?",
-    prompt: `function logger() { 
-        console.log("output 4")
-    }`,
-    choices: ["output 1", "output 2", "output 3", "output 4"],
-    correctAnswers: [1, 2],
-    kind: "multiple",
-  },
-];

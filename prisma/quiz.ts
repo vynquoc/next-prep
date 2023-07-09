@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { QuizInterface } from "@/common/types";
+import { QuizInterface } from "@/types/types";
 const prisma = new PrismaClient();
 
 export const createQuiz = async ({

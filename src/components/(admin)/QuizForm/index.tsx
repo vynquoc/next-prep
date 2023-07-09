@@ -2,11 +2,12 @@
 import { FormEvent, useState } from "react";
 import FormField from "@/components/FormField";
 import CheckBox from "@/components/CheckBox";
-import { QuizForm, QuizInterface } from "@/common/types";
+import { QuizForm, QuizInterface } from "@/types/types";
 
 type Props = {
   quiz?: QuizInterface;
 };
+
 const QuizForm = ({ quiz }: Props) => {
   const [form, setForm] = useState<QuizForm>({
     title: quiz?.title || "",

@@ -1,19 +1,22 @@
-import { User } from "@/components/user";
-import { authConfig } from "@/lib/auth";
-import { db } from "@/lib/db";
-import { getServerSession } from "next-auth";
+"use client";
 
-const QuizManager = async () => {
-  const session = await getServerSession(authConfig);
-  const quizzes = await db.quiz.findMany();
+import { useState } from "react";
+import styles from "./styles.module.css";
+import QuizForm from "@/components/(admin)/QuizForm";
+import Modal from "@/components/Modal";
+
+const QuizManager = () => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <div>
-      <h1>{JSON.stringify(session)}</h1>
-      <h2>client</h2>
-      <User />
-      {quizzes.map((quiz) => (
-        <p>{quiz.title}</p>
-      ))}
+      <button onClick={() => setIsOpen(true)}>Create Quiz</button>
+      <Modal
+        className={styles.modalStyle}
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+      >
+        <QuizForm />
+      </Modal>
     </div>
   );
 };

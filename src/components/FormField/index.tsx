@@ -1,3 +1,5 @@
+import styles from "./styles.module.css";
+
 type Props = {
   type?: string;
   name?: string;

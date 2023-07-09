@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 const CredentialsForm = () => {
   const router = useRouter();
   const [form, setForm] = useState({
-    email: "cmtry0901@gmail.com",
+    email: "admin@gmail.com",
     password: "123123",
   });
   const handleFieldChange = (name: string, value: string) => {
