@@ -1,0 +1,11 @@
+.container {
+    display: flex;
+}
+
+.descriptionContainer {
+    width: 40%;
+}
+
+.editorContainer {
+    flex: 1;
+}

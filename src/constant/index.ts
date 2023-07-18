@@ -1,5 +1,5 @@
 export const NavLinks = [
-  { href: "/coding", text: "Coding Questions" },
+  { href: "/challenges", text: "Coding Questions" },
   { href: "/quiz", text: "Quiz" },
   { href: "/trivia", text: "Trivia Questions" },
 ];

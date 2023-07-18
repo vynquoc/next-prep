@@ -1,0 +1,27 @@
+.header {
+    display: flex;
+    background-color: var(--primary-color);
+    padding: 0.5rem 1rem;
+}
+
+.tabContainer {
+    display: flex;
+}
+
+.tab {
+    font-family: var(--primary-font);
+    color: white;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 3px;
+    transition: background-color 0.2s ease;
+}
+
+.tab:hover {
+    cursor: pointer;
+}
+
+.tabActive {
+    background-color: #285b85;
+}
+
