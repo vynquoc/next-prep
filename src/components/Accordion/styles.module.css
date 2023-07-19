@@ -1,0 +1,29 @@
+.container {
+    background-color: var(--primary-color);
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+}   
+.header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+}
+
+.header:hover {
+    cursor: pointer;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.2s ease;
+}
+
+.iconOpen {
+    transform: rotate(180deg);
+}
+
+.content {
+    margin-top: 10px;
+}

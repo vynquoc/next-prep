@@ -81,3 +81,19 @@ enum Role {
   admin
   user
 }
+
+model Challenge {
+  id              String   @id @default(uuid())
+  category        String?
+  type            String?
+  name            String
+  slug            String?
+  prompt          String?  @db.Text
+  hints           Json?
+  languageToWrite String?
+  promptCode      Json?
+  reactConfig     Json?
+  solution        String?
+  difficulty      String?
+  createdAt       DateTime @default(now())
+}

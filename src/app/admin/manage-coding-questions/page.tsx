@@ -1,5 +1,11 @@
+import ChallengeForm from "@/components/(admin)/ChallengeForm";
+
 const CodingQuestionsManager = () => {
-  return <div>coding</div>;
+  return (
+    <div>
+      <ChallengeForm />
+    </div>
+  );
 };
 
 export default CodingQuestionsManager;

@@ -1,6 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+import { db } from "@/lib/db";
 import { QuizInterface } from "@/types/types";
-const prisma = new PrismaClient();
 
 export const createQuiz = async ({
   title,
@@ -9,7 +8,7 @@ export const createQuiz = async ({
   correctAnswers,
   kind,
 }: QuizInterface) => {
-  const quiz = await prisma.quiz.create({
+  const quiz = await db.quiz.create({
     data: {
       title,
       prompt,
@@ -22,6 +21,6 @@ export const createQuiz = async ({
 };
 
 export const getAllQuizzes = async () => {
-  const quizzes = await prisma.quiz.findMany();
+  const quizzes = await db.quiz.findMany();
   return quizzes;
 };

@@ -1,5 +1,5 @@
 const CodingQuestions = () => {
-  return <div>hehe</div>;
+  return <div></div>;
 };
 
 export default CodingQuestions;

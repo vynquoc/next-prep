@@ -26,6 +26,7 @@ const Editor = ({ language = "javascript", onChange, code }: Props) => {
       style={{ fontSize: 14 }}
       onChange={onChange}
       height="100%"
+      minWidth="400px"
     />
   );
 };

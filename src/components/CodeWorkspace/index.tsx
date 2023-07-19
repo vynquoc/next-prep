@@ -1,65 +1,34 @@
-import React, { useState } from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import Editor from "../Editor";
 import LivePreview from "../LivePreview";
+import TabBar from "../TabBar";
 import Split from "react-split";
 type Props = {
   isReact?: boolean;
+  challenge?: any;
 };
 
 const tabs = ["JAVASCRIPT", "CSS", "HTML"];
 
-const CodeWorkspace = ({ isReact }: Props) => {
-  const [currentTab, setCurrentTab] = useState("JAVASCRIPT");
+const CodeWorkspace = ({ isReact, challenge }: Props) => {
+  const [currentTab, setCurrentTab] = useState(tabs[0]);
   const [html, setHtml] = useState("");
   const [css, setCss] = useState("");
-  const [js, setJs] = useState(`
-  function Counter() {
-     const [count, setCount] =
-       React.useState(0)
-     return (
-       
-       <div>
-      
-         <h3 className="h3" style={{
-           background: 'darkslateblue',
-           padding: 8,
-           borderRadius: 4
-         }}>
-           Count: {count} 🧮
-         </h3>
-         <button
-           onClick={() =>
-             setCount(c => c + 1)
-           }>
-           Increment
-         </button>
-       </div>
-     
-     )
-   }
- 
- `);
-
+  const [js, setJs] = useState("");
+  useEffect(() => {
+    setHtml(challenge?.promptCode.html);
+    setJs(challenge?.promptCode.js);
+    setCss(challenge?.promptCode.css);
+  }, [challenge]);
   return (
     <div style={{ height: "100%" }}>
-      <div className={styles.header}>
-        <div className={styles.tabContainer}>
-          {tabs.map((tab) => (
-            <div
-              className={
-                tab === currentTab
-                  ? `${styles.tab} ${styles.tabActive}`
-                  : `${styles.tab}`
-              }
-              key={tab}
-              onClick={() => setCurrentTab(tab)}
-            >
-              {tab}
-            </div>
-          ))}
-        </div>
-      </div>
+      <TabBar
+        tabs={tabs}
+        onTabChange={(tab: string) => setCurrentTab(tab)}
+        currentTab={currentTab}
+      />
       <Split
         className={styles.split}
         direction="vertical"
@@ -72,11 +41,21 @@ const CodeWorkspace = ({ isReact }: Props) => {
             <Editor language="css" code={css} onChange={setCss} />
           )}
           {currentTab === "HTML" && (
-            <Editor language="html" code={html} onChange={setHtml} />
+            <Editor
+              language="html"
+              code={challenge?.promptCode.html}
+              onChange={setHtml}
+            />
           )}
         </div>
         <div style={{ overflow: "auto", width: "100%" }}>
-          <LivePreview css={css} js={js} html={html} componentName="Quiz" />
+          <LivePreview
+            css={css}
+            js={js}
+            html={html}
+            isReact={isReact}
+            componentName={challenge?.reactConfig.componentName}
+          />
         </div>
       </Split>
     </div>
