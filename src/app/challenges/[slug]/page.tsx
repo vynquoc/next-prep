@@ -1,16 +1,18 @@
 "use client";
 import styles from "./styles.module.css";
+import Editor from "@/components/Editor";
+import Split from "react-split";
 
 import CodeWorkspace from "@/components/CodeWorkspace";
 
 const ChallengePage = () => {
   return (
-    <div className={styles.container}>
-      <div className={styles.descriptionContainer}>Description</div>
-      <div className={styles.editorContainer}>
+    <Split className="split" sizes={[40, 60]}>
+      <div>des</div>
+      <div style={{ height: "100vh" }}>
         <CodeWorkspace />
       </div>
-    </div>
+    </Split>
   );
 };
 
