@@ -4,7 +4,7 @@ type Props = {
   type?: string;
   name?: string;
   title?: string;
-  state: string;
+  state?: string;
   placeholder?: string;
   isTextArea?: boolean;
   onFieldChange: (value: string) => void;

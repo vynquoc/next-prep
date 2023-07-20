@@ -1,25 +1,19 @@
-"use client";
-import { useEffect, useState } from "react";
-import styles from "./styles.module.css";
-import Split from "react-split";
+import { getChallengeBySlug } from "@/prisma/challenge";
+import CustomSplit from "@/components/Split";
 
 import CodeWorkspace from "@/components/CodeWorkspace";
 import ChallengeDescription from "@/components/ChallengeDescription";
-import { useParams } from "next/navigation";
+import { ChallengeInterface } from "@/types/types";
 
-const ChallengePage = () => {
-  const [challenge, setChallenge] = useState<any>(null);
-  const searchParams = useParams();
-  useEffect(() => {
-    const fetchChallenge = async () => {
-      const response = await fetch(`/api/challenge/${searchParams.slug}`);
-      const data = await response.json();
-      setChallenge(data);
-    };
-    fetchChallenge();
-  }, []);
+const ChallengePage = async ({
+  params: { slug },
+}: {
+  params: { slug: string };
+}) => {
+  const challenge = (await getChallengeBySlug(slug)) as ChallengeInterface;
+
   return (
-    <Split className="split" sizes={[40, 60]}>
+    <CustomSplit className="split" sizes={[40, 60]}>
       <div style={{ height: "100vh" }}>
         <ChallengeDescription challenge={challenge} />
       </div>
@@ -30,7 +24,7 @@ const ChallengePage = () => {
           challenge={challenge}
         />
       </div>
-    </Split>
+    </CustomSplit>
   );
 };
 

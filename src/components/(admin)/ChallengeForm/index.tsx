@@ -1,22 +1,21 @@
 "use client";
 import { FormEvent, useState } from "react";
 import FormField from "@/components/FormField";
-import CheckBox from "@/components/CheckBox";
-import { QuizForm, QuizInterface } from "@/types/types";
+import { ChallengeInterface } from "@/types/types";
 import Editor from "@/components/Editor";
 import { slugify } from "@/utils";
 
 type Props = {
-  challenge?: any;
-  onSubmit?: any;
+  challenge?: ChallengeInterface;
+  mode: string;
 };
 
-const ChallengeForm = ({ challenge, onSubmit }: Props) => {
+const ChallengeForm = ({ challenge, mode }: Props) => {
   const [form, setForm] = useState({
     name: challenge?.name || "",
     prompt: challenge?.prompt || "",
     category: challenge?.category || "",
-    type: challenge?.type || ["", "", "", ""],
+    type: challenge?.type || "",
     slug: challenge?.slug || "",
     hints: challenge?.hints || [""],
     languageToWrite: challenge?.languageToWrite || "",
@@ -62,26 +61,29 @@ const ChallengeForm = ({ challenge, onSubmit }: Props) => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const slugName = slugify(form.name);
-    const data = { ...form, slug: slugName };
-    const response = await fetch("/api/challenge", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    const challenge = await response.json();
-    console.log(challenge);
-  };
-
-  const handleSubmit2 = async (e: FormEvent) => {
-    e.preventDefault();
-    await onSubmit(form);
+    if (mode === "update") {
+      await fetch(`/api/challenge/${challenge?.slug}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+    } else {
+      const slugName = slugify(form.name);
+      const updatedForm = { ...form, slug: slugName };
+      await fetch("/api/challenge", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedForm),
+      });
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit2}>
+    <form onSubmit={handleSubmit}>
       <FormField
         title="Name"
         placeholder="Enter challenge name"
@@ -154,7 +156,7 @@ const ChallengeForm = ({ challenge, onSubmit }: Props) => {
         onFieldChange={(value) => handleChange("difficulty", value)}
       />
 
-      {form.hints.map((hint: any, index: number) => (
+      {form.hints.map((hint: string, index: number) => (
         <div key={index}>
           <FormField
             title={`Hint ${index + 1}`}

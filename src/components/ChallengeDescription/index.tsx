@@ -1,13 +1,18 @@
 "use client";
-import Split from "react-split";
+import CustomSplit from "../Split";
 import ChallengePrompt from "../ChallengePrompt";
 import ChallengeDemo from "../ChallengeDemo";
 import ChallengeSolution from "../ChallengeSolution";
 import TabBar from "../TabBar";
 import { useState } from "react";
+import { ChallengeInterface } from "@/types/types";
 
 const tabs = ["Prompt", "Solution"];
-const ChallengeDescription = ({ challenge }: any) => {
+
+type Props = {
+  challenge?: ChallengeInterface;
+};
+const ChallengeDescription = ({ challenge }: Props) => {
   const [currentTab, setCurrentTab] = useState(tabs[0]);
 
   return (
@@ -17,7 +22,7 @@ const ChallengeDescription = ({ challenge }: any) => {
         currentTab={currentTab}
         onTabChange={(tab: string) => setCurrentTab(tab)}
       />
-      <Split
+      <CustomSplit
         direction="vertical"
         sizes={[60, 40]}
         minSize={60}
@@ -33,7 +38,7 @@ const ChallengeDescription = ({ challenge }: any) => {
         <div style={{ overflow: "auto", width: "100%" }}>
           <ChallengeDemo challenge={challenge} />
         </div>
-      </Split>
+      </CustomSplit>
     </div>
   );
 };

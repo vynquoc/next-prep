@@ -20,3 +20,25 @@ export interface UserInterface {
   email: string;
   role: string;
 }
+
+export interface ChallengeInterface {
+  id: string;
+  name: string;
+  prompt?: string;
+  category: string;
+  type: string;
+  slug?: string;
+  hints?: string[];
+  languageToWrite?: string;
+  promptCode?: {
+    css?: string;
+    html?: string;
+    js?: string;
+  };
+  reactConfig?: {
+    componentName?: string;
+  };
+  solution?: string;
+  difficulty?: string;
+  createdAt?: Date;
+}
