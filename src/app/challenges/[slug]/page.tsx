@@ -25,6 +25,7 @@ const ChallengePage = () => {
       </div>
       <div style={{ height: "100vh" }}>
         <CodeWorkspace
+          key={challenge?.id}
           isReact={challenge?.languageToWrite === "jsx"}
           challenge={challenge}
         />

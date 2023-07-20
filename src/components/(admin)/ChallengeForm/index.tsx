@@ -8,9 +8,10 @@ import { slugify } from "@/utils";
 
 type Props = {
   challenge?: any;
+  onSubmit?: any;
 };
 
-const ChallengeForm = ({ challenge }: Props) => {
+const ChallengeForm = ({ challenge, onSubmit }: Props) => {
   const [form, setForm] = useState({
     name: challenge?.name || "",
     prompt: challenge?.prompt || "",
@@ -18,7 +19,7 @@ const ChallengeForm = ({ challenge }: Props) => {
     type: challenge?.type || ["", "", "", ""],
     slug: challenge?.slug || "",
     hints: challenge?.hints || [""],
-    languageToWrite: challenge?.languagueToWrite || "",
+    languageToWrite: challenge?.languageToWrite || "",
     promptCode: challenge?.promptCode || { css: "", js: "", html: "" },
     reactConfig: challenge?.reactConfig || { componentName: "" },
     solution: challenge?.solution || "",
@@ -74,8 +75,13 @@ const ChallengeForm = ({ challenge }: Props) => {
     console.log(challenge);
   };
 
+  const handleSubmit2 = async (e: FormEvent) => {
+    e.preventDefault();
+    await onSubmit(form);
+  };
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit2}>
       <FormField
         title="Name"
         placeholder="Enter challenge name"
@@ -157,7 +163,7 @@ const ChallengeForm = ({ challenge }: Props) => {
           />
         </div>
       ))}
-      <button type="submit">create</button>
+      <button type="submit">SUBMIT</button>
     </form>
   );
 };

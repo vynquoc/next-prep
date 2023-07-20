@@ -87,7 +87,7 @@ model Challenge {
   category        String?
   type            String?
   name            String
-  slug            String?
+  slug            String?  @unique
   prompt          String?  @db.Text
   hints           Json?
   languageToWrite String?

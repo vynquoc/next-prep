@@ -5,7 +5,7 @@ export const NavLinks = [
 ];
 
 export const AdminTabs = [
-  { href: "/admin/manage-quizes", text: "Manage Quizes" },
+  { href: "/admin/manage-quizzes", text: "Manage Quizzes" },
   { href: "/admin/manage-coding-questions", text: "Manage Coding Questions" },
   { href: "/admin/manage-trivia-questions", text: "Manage Trivia Questions" },
 ];

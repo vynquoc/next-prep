@@ -18,11 +18,12 @@ const ChallengePrompt = ({ challenge }: any) => {
           <Image src={icInfor} alt="infor" className={styles.icon} />
         </div>
         <p>
-          : This challenge? has pre-written CSS code, you can access but do not
+          This challenge has pre-written CSS code, you can access but do not
           modify it.
         </p>
       </div>
-      <ReactMarkdown children={challenge?.prompt} remarkPlugins={[remarkGfm]} />
+      {/* <ReactMarkdown children={challenge?.prompt} remarkPlugins={[remarkGfm]} /> */}
+      <ReactMarkdown className="markdown">{challenge?.prompt}</ReactMarkdown>
       <h3 style={{ margin: "10px 0" }}>Hints</h3>
       {challenge?.hints.map((hint: string, index: number) => (
         <Accordion

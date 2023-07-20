@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./styles.module.css";
 import Editor from "../Editor";
 import LivePreview from "../LivePreview";
@@ -14,14 +14,10 @@ const tabs = ["JAVASCRIPT", "CSS", "HTML"];
 
 const CodeWorkspace = ({ isReact, challenge }: Props) => {
   const [currentTab, setCurrentTab] = useState(tabs[0]);
-  const [html, setHtml] = useState("");
-  const [css, setCss] = useState("");
-  const [js, setJs] = useState("");
-  useEffect(() => {
-    setHtml(challenge?.promptCode.html);
-    setJs(challenge?.promptCode.js);
-    setCss(challenge?.promptCode.css);
-  }, [challenge]);
+  const [html, setHtml] = useState(challenge?.promptCode.html);
+  const [css, setCss] = useState(challenge?.promptCode.css);
+  const [js, setJs] = useState(challenge?.promptCode.js);
+
   return (
     <div style={{ height: "100%" }}>
       <TabBar
@@ -38,7 +34,12 @@ const CodeWorkspace = ({ isReact, challenge }: Props) => {
         <div style={{ overflow: "auto", width: "100%" }}>
           {currentTab === "JAVASCRIPT" && <Editor code={js} onChange={setJs} />}
           {currentTab === "CSS" && (
-            <Editor language="css" code={css} onChange={setCss} />
+            <Editor
+              language="css"
+              code={css}
+              onChange={setCss}
+              editable={false}
+            />
           )}
           {currentTab === "HTML" && (
             <Editor

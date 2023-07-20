@@ -10,6 +10,7 @@
 
 .tab {
     font-family: var(--primary-font);
+    font-size: 0.9rem;
     color: white;
     font-weight: 700;
     padding: 4px 8px;
@@ -22,5 +23,5 @@
 }
 
 .tabActive {
-    background-color: #285b85;
+    background-color: var(--primary-color-dark)
 }

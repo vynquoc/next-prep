@@ -8,6 +8,7 @@
   --white: #fff;
   --gray: #858484;
   --primary-color: #3273a8;
+  --primary-color-dark : #113d62;
 }
 * {
   padding: 0;
@@ -38,8 +39,22 @@ li {
   cursor: col-resize;
 }
 
-
-
 .gutter.gutter-vertical {
   cursor: row-resize;
+}
+
+.markdown > * {
+  all: revert;
+  line-height: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.markdown li {
+  list-style: unset;
+}
+
+.markdown code {
+  background-color: var(--primary-color);
+  padding: 0 3px;
+  border-radius: 2px;
 }

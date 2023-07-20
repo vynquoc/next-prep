@@ -8,6 +8,7 @@ type Props = {
   language?: string;
   onChange?: any;
   code?: string;
+  editable?: boolean;
 };
 
 const languages: any = {
@@ -16,17 +17,23 @@ const languages: any = {
   javascript: () => javascript({ jsx: true }),
 };
 
-const Editor = ({ language = "javascript", onChange, code }: Props) => {
+const Editor = ({
+  language = "javascript",
+  onChange,
+  code,
+  editable,
+}: Props) => {
   const lang = languages[language];
   return (
     <CodeMirror
       value={code}
       theme={vscodeDark}
       extensions={[lang()]}
-      style={{ fontSize: 14 }}
+      style={{ fontSize: 12 }}
       onChange={onChange}
       height="100%"
       minWidth="400px"
+      editable={editable}
     />
   );
 };

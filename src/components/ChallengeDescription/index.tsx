@@ -2,10 +2,11 @@
 import Split from "react-split";
 import ChallengePrompt from "../ChallengePrompt";
 import ChallengeDemo from "../ChallengeDemo";
+import ChallengeSolution from "../ChallengeSolution";
 import TabBar from "../TabBar";
 import { useState } from "react";
 
-const tabs = ["PROMT", "SOLUTION"];
+const tabs = ["Prompt", "Solution"];
 const ChallengeDescription = ({ challenge }: any) => {
   const [currentTab, setCurrentTab] = useState(tabs[0]);
 
@@ -23,10 +24,14 @@ const ChallengeDescription = ({ challenge }: any) => {
         style={{ height: "100%", backgroundColor: "#1E1E1E" }}
       >
         <div style={{ overflow: "auto", width: "100%" }}>
-          <ChallengePrompt challenge={challenge} />
+          {currentTab === "Prompt" && <ChallengePrompt challenge={challenge} />}
+
+          {currentTab === "Solution" && (
+            <ChallengeSolution code={challenge?.solution} />
+          )}
         </div>
         <div style={{ overflow: "auto", width: "100%" }}>
-          <ChallengeDemo />
+          <ChallengeDemo challenge={challenge} />
         </div>
       </Split>
     </div>
