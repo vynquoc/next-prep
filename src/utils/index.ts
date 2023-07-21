@@ -1,9 +1,8 @@
-export function debounce(callback: () => void, delay: number) {
-  let timerId: ReturnType<typeof setTimeout> | null;
+export function debounce(callback: any, delay: number) {
+  let timerId: NodeJS.Timeout;
   return function (...args: any) {
-    const context = this;
     clearTimeout(timerId);
-    timerId = setTimeout(() => callback.apply(context, args), delay);
+    timerId = setTimeout(() => callback.apply(this, args), delay);
   };
 }
 

@@ -7,6 +7,7 @@ export const createQuiz = async ({
   choices,
   correctAnswers,
   kind,
+  codeSnippet,
 }: QuizInterface) => {
   const quiz = await db.quiz.create({
     data: {
@@ -15,6 +16,7 @@ export const createQuiz = async ({
       choices,
       correctAnswers,
       kind,
+      codeSnippet,
     },
   });
   return quiz;
@@ -23,4 +25,19 @@ export const createQuiz = async ({
 export const getAllQuizzes = async () => {
   const quizzes = await db.quiz.findMany();
   return quizzes;
+};
+
+export const getQuizById = async (id: string) => {
+  const quiz = await db.quiz.findUnique({ where: { id: id } });
+  return quiz;
+};
+
+export const updateQuiz = async (id: string, data: QuizInterface) => {
+  const quiz = await db.quiz.update({
+    where: {
+      id: id,
+    },
+    data: data,
+  });
+  return quiz;
 };

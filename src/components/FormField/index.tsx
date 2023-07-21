@@ -19,10 +19,11 @@ const FormField = ({
   onFieldChange,
 }: Props) => {
   return (
-    <div>
-      {type !== "radio" && <label>{title}</label>}
+    <div className={styles.fieldWrapper}>
+      {type !== "radio" && <label className={styles.fieldLabel}>{title}</label>}
       {isTextArea ? (
         <textarea
+          className={styles.textArea}
           placeholder={placeholder}
           value={state}
           onChange={(e) => onFieldChange(e.target.value)}
@@ -36,7 +37,7 @@ const FormField = ({
           onChange={(e) => onFieldChange(e.target.value)}
         />
       )}
-      {type === "radio" && <label>{title}</label>}
+      {type === "radio" && <label className={styles.fieldLabel}>{title}</label>}
     </div>
   );
 };

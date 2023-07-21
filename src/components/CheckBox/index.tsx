@@ -1,3 +1,5 @@
+import styles from "./styles.module.css";
+
 type Props = {
   label: string;
   checked: boolean;
@@ -6,7 +8,7 @@ type Props = {
 
 const CheckBox = ({ label, checked, onChange }: Props) => {
   return (
-    <div>
+    <div className={styles.checkboxWrapper}>
       <input type="checkbox" checked={checked} onChange={onChange} />
       <label>{label}</label>
     </div>

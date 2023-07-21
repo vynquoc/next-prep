@@ -4,7 +4,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className={styles.adminLayout}>
       <SideBarAdmin />
-      {children}
+      <div className={styles.mainContent}>{children}</div>
     </div>
   );
 };

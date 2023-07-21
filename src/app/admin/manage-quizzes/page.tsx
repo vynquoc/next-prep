@@ -1,22 +1,18 @@
-"use client";
-
-import { useState } from "react";
+import { getAllQuizzes } from "@/prisma/quiz";
 import styles from "./styles.module.css";
-import QuizForm from "@/components/(admin)/QuizForm";
-import Modal from "@/components/Modal";
 
-const QuizManager = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+import Link from "next/link";
+
+const QuizManager = async () => {
+  const quizzes = await getAllQuizzes();
   return (
     <div>
-      <button onClick={() => setIsOpen(true)}>Create Quiz</button>
-      <Modal
-        className={styles.modalStyle}
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-      >
-        <QuizForm />
-      </Modal>
+      <Link href="/admin/create-quiz">Create Quiz</Link>
+      {quizzes.map((quiz) => (
+        <Link href={`/admin/edit-quiz/${quiz.id}`} key={quiz.id}>
+          {quiz.title}
+        </Link>
+      ))}
     </div>
   );
 };

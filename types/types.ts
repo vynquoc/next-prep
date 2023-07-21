@@ -4,12 +4,14 @@ export type QuizForm = {
   kind: string;
   choices: string[];
   correctAnswers: number[];
+  codeSnippet: string;
 };
 
 export interface QuizInterface {
   id?: string;
   title: string;
   prompt: string;
+  codeSnippet?: string;
   kind: "multiple" | "single";
   choices: string[];
   correctAnswers: number[];

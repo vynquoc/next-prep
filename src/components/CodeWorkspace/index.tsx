@@ -6,6 +6,7 @@ import Editor from "../Editor";
 import LivePreview from "../LivePreview";
 import TabBar from "../TabBar";
 import { ChallengeInterface } from "@/types/types";
+import { debounce } from "@/utils";
 
 type Props = {
   isReact?: boolean;
@@ -20,6 +21,9 @@ const CodeWorkspace = ({ isReact, challenge }: Props) => {
   const [css, setCss] = useState(challenge?.promptCode?.css);
   const [js, setJs] = useState(challenge?.promptCode?.js);
 
+  const debouncedSetHtml = debounce(setHtml, 500);
+  const debouncedSetJs = debounce(setJs, 500);
+  const debouncedSetCss = debounce(setCss, 500);
   return (
     <div style={{ height: "100%" }}>
       <TabBar
@@ -34,15 +38,17 @@ const CodeWorkspace = ({ isReact, challenge }: Props) => {
         minSize={60}
       >
         <div style={{ overflow: "auto", width: "100%" }}>
-          {currentTab === "JAVASCRIPT" && <Editor code={js} onChange={setJs} />}
+          {currentTab === "JAVASCRIPT" && (
+            <Editor code={js} onChange={debouncedSetJs} />
+          )}
           {currentTab === "CSS" && (
-            <Editor language="css" code={css} onChange={setCss} />
+            <Editor language="css" code={css} onChange={debouncedSetCss} />
           )}
           {currentTab === "HTML" && (
             <Editor
               language="html"
               code={challenge?.promptCode?.html}
-              onChange={setHtml}
+              onChange={debouncedSetHtml}
             />
           )}
         </div>
