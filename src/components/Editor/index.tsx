@@ -13,6 +13,7 @@ type Props = {
   minHeight?: string;
   width?: string;
   minWidth?: string;
+  themeColor?: "dark" | "light";
 };
 
 const languages: any = {
@@ -30,12 +31,13 @@ const Editor = ({
   minWidth = "400px",
   width,
   minHeight,
+  themeColor = "dark",
 }: Props) => {
   const lang = languages[language];
   return (
     <CodeMirror
       value={code}
-      theme={vscodeDark}
+      theme={themeColor === "light" ? "light" : vscodeDark}
       extensions={[lang()]}
       style={{ fontSize: 12 }}
       onChange={onChange}

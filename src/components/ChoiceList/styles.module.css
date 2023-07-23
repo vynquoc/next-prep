@@ -1,4 +1,16 @@
-.userAnswer {
-    color: red;
+.container {
+    padding: 15px;
 }
 
+.choiceWrapper {
+    padding: 10px 18px;
+    color: var(--gray-dark);
+}
+
+.choiceWrapper input {
+    margin-right: 10px;
+}
+
+.correctChoice {
+    border: 1px solid #4DC367;
+}

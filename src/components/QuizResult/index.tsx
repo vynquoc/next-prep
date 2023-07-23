@@ -1,53 +1,55 @@
 import { QuizInterface } from "@/types/types";
-
+import { deepEqual } from "@/utils";
 type Props = {
-  questionList: QuizInterface[] | null;
-  chosenAnswers: any;
+  quizList: QuizInterface[] | null;
+  userAnswers: any;
+  timeDone: string;
+  onReviewClick: () => void;
 };
 
 const checkEqualAnswers = (array1: number[], array2: number[]) => {
-  if (array1.length !== array2.length) {
-    return false;
+  if (array1 && array2) {
+    return deepEqual<number>(array1, array2);
   }
-
-  const frequencyMap = new Map();
-
-  // Build frequency map for array1
-  for (const element of array1) {
-    frequencyMap.set(element, (frequencyMap.get(element) || 0) + 1);
-  }
-
-  // Compare elements of array2 against frequency map
-  for (const element of array2) {
-    if (!frequencyMap.has(element)) {
-      return false;
-    }
-    const frequency = frequencyMap.get(element);
-    if (frequency === 1) {
-      frequencyMap.delete(element);
-    } else {
-      frequencyMap.set(element, frequency - 1);
-    }
-  }
-
-  return true;
+  return false;
 };
 
-const QuizResult = ({ questionList, chosenAnswers }: Props) => {
+const QuizResult = ({
+  quizList,
+  userAnswers,
+  timeDone,
+  onReviewClick,
+}: Props) => {
+  const updatedQuizList = quizList;
+  updatedQuizList?.forEach((quiz, index) => {
+    if (!userAnswers[index]) {
+      userAnswers[index] = null;
+    }
+  });
   const checkCorrectAnswers = () => {
     let count = 0;
-    questionList?.forEach((question, index) => {
+    updatedQuizList?.forEach((question, index) => {
       if (question.kind === "single") {
-        if (question.correctAnswers[0] === chosenAnswers[index][0]) count++;
+        if (
+          userAnswers[index] &&
+          question.correctAnswers[0] === userAnswers[index][0]
+        )
+          count++;
       } else {
-        if (checkEqualAnswers(question.correctAnswers, chosenAnswers[index])) {
+        if (checkEqualAnswers(question.correctAnswers, userAnswers[index])) {
           count++;
         }
       }
     });
     return count;
   };
-  return <div>{`${checkCorrectAnswers()} / ${questionList?.length}`}</div>;
+  return (
+    <div>
+      <p>{timeDone}</p>
+      <p>{`${checkCorrectAnswers()} / ${updatedQuizList?.length}`}</p>
+      <button onClick={onReviewClick}>review</button>
+    </div>
+  );
 };
 
 export default QuizResult;

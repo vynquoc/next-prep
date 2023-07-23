@@ -5,11 +5,3 @@
     height: 100vh;
 }
 
-.inner {
-    display: flex;
-}
-
-
-.selectedQuestion {
-    color: var(--primary-color)
-}
