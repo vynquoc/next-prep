@@ -43,15 +43,16 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  password      String?
-  role          Role      @default(user)
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
+  id             String           @id @default(cuid())
+  name           String?
+  email          String?          @unique
+  emailVerified  DateTime?
+  password       String?
+  role           Role             @default(user)
+  image          String?
+  accounts       Account[]
+  sessions       Session[]
+  QuizSubmission QuizSubmission[]
 }
 
 model VerificationToken {
@@ -81,6 +82,17 @@ enum Kind {
 enum Role {
   admin
   user
+}
+
+model QuizSubmission {
+  id          String   @id @default(uuid())
+  userId      String
+  quizList    Json
+  userAnswers Json
+  finishTime  Int
+  createdAt   DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
 }
 
 model Challenge {

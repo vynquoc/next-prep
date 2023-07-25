@@ -1,10 +1,12 @@
+import styles from "./styles.module.css";
 import { QuizInterface } from "@/types/types";
-import { deepEqual } from "@/utils";
+import { convertTime, deepEqual } from "@/utils";
 type Props = {
   quizList: QuizInterface[] | null;
   userAnswers: any;
-  timeDone: string;
+  finishTime: string;
   onReviewClick: () => void;
+  onRetryClick: () => void;
 };
 
 const checkEqualAnswers = (array1: number[], array2: number[]) => {
@@ -17,8 +19,9 @@ const checkEqualAnswers = (array1: number[], array2: number[]) => {
 const QuizResult = ({
   quizList,
   userAnswers,
-  timeDone,
+  finishTime,
   onReviewClick,
+  onRetryClick,
 }: Props) => {
   const updatedQuizList = quizList;
   updatedQuizList?.forEach((quiz, index) => {
@@ -44,10 +47,22 @@ const QuizResult = ({
     return count;
   };
   return (
-    <div>
-      <p>{timeDone}</p>
-      <p>{`${checkCorrectAnswers()} / ${updatedQuizList?.length}`}</p>
-      <button onClick={onReviewClick}>review</button>
+    <div className={styles.container}>
+      <h4>You've completed the Frontend quiz.</h4>
+      <div className={styles.result}>
+        <p>
+          <span>Time: </span>
+          {convertTime(parseInt(finishTime))}
+        </p>
+        <p>
+          <span>Score: </span>
+          {`${checkCorrectAnswers()} / ${updatedQuizList?.length}`}
+        </p>
+      </div>
+      <div className={styles.buttons}>
+        <button onClick={onReviewClick}>Review Quiz</button>
+        <button onClick={onRetryClick}>Retry Quiz</button>
+      </div>
     </div>
   );
 };

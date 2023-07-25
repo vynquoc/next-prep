@@ -1,7 +1,25 @@
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     height: 100vh;
 }
 
+.banner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 30%;
+    background-color: var(--primary-color);
+    font-family: var(--primary-font);
+    color: white;
+}
+
+.banner h1 {
+    margin-bottom: 20px;
+}
+
+.mainSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70%;
+}

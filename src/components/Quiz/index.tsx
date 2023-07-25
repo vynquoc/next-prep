@@ -2,54 +2,46 @@
 
 import { useEffect, useState } from "react";
 import styles from "./styles.module.css";
-import QuizResult from "@/components/QuizResult";
 import ChoiceList from "@/components/ChoiceList";
 import { QuizInterface } from "@/types/types";
 import Editor from "../Editor";
 import Icon from "../Icon";
+import { convertTime } from "@/utils";
 import icLeft from "@/public/ic_arrow_left.svg";
 import icRight from "@/public/ic_arrow_right.svg";
+import icClock from "@/public/ic_clock.svg";
 import useTimer from "@/hooks/useTimer";
 
 type Props = {
   quizList: QuizInterface[];
-  onDone: (data: any) => void;
+  onFinish: (data: any) => void;
 };
 
-const convertTime = (seconds: number) => {
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = seconds % 60;
+const duration = 45; //minutes
 
-  const formattedMinutes = String(minutes).padStart(2, "0");
-  const formattedSeconds = String(remainingSeconds).padStart(2, "0");
-
-  return `${formattedMinutes}:${formattedSeconds}`;
-};
-
-const duration = 0.1; //minutes
-
-const Quiz = ({ quizList, onDone }: Props) => {
+const Quiz = ({ quizList, onFinish }: Props) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [answers, setAnwsers] = useState<{ [key: number]: number[] }>({});
   const { timeRemaining, start } = useTimer(duration);
   useEffect(() => {
     start();
   }, []);
-  const handleSelectQuestion = (index: number) => {
-    setSelectedIndex(index);
-  };
 
   useEffect(() => {
     if (timeRemaining >= 1) return;
     const timerId = setTimeout(() => {
-      onDone({
+      onFinish({
         quizList: quizList,
         userAnswers: answers,
-        timeDone: convertTime(duration * 60),
+        finishTime: duration * 60,
       });
     }, 1000);
     return () => clearTimeout(timerId);
   }, [timeRemaining]);
+
+  const handleSelectQuestion = (index: number) => {
+    setSelectedIndex(index);
+  };
 
   const handleSelectAnswer = (questionIndex: number, answer: number[]) => {
     const updatedAnswers = { ...answers };
@@ -69,11 +61,11 @@ const Quiz = ({ quizList, onDone }: Props) => {
     setSelectedIndex((prev) => prev - 1);
   };
 
-  const handleDoneClick = () => {
-    onDone({
+  const handleSubmitClick = () => {
+    onFinish({
       quizList: quizList,
       userAnswers: answers,
-      timeDone: convertTime(duration * 60 - timeRemaining),
+      finishTime: duration * 60 - timeRemaining,
     });
   };
 
@@ -82,7 +74,6 @@ const Quiz = ({ quizList, onDone }: Props) => {
   const displayTime = convertTime(timeRemaining);
   return (
     <div className={styles.container}>
-      <p>{displayTime}</p>
       <div className={styles.quizListContainer}>
         <p style={{ minWidth: 140 }}>Progress: {progress}</p>
         <ul className={styles.progressBar}>
@@ -102,8 +93,19 @@ const Quiz = ({ quizList, onDone }: Props) => {
       <section className={styles.questionContentContainer}>
         <div className={styles.questionContent}>
           <div className={styles.questionPrompt}>
-            <p style={{ marginBottom: 10 }}>
-              Question {selectedIndex + 1} / {quizList.length}
+            <p
+              style={{
+                marginBottom: 10,
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <span style={{ flex: 1 }}>
+                Question {selectedIndex + 1} / {quizList.length}
+              </span>
+
+              <Icon src={icClock} width={20} height={20} />
+              <span style={{ marginLeft: 5, minWidth: 60 }}>{displayTime}</span>
             </p>
             <h3 style={{ marginBottom: 10 }}>{selectedQuestion.title}</h3>
             {selectedQuestion.codeSnippet && (
@@ -137,8 +139,8 @@ const Quiz = ({ quizList, onDone }: Props) => {
           </div>
           <button
             className={styles.submitButton}
-            onClick={handleDoneClick}
-            // disabled={Object.keys(answers).length !== quizList.length}
+            onClick={handleSubmitClick}
+            disabled={Object.keys(answers).length !== quizList.length}
           >
             Submit
           </button>

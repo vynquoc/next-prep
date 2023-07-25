@@ -11,15 +11,15 @@ import icRight from "@/public/ic_arrow_right.svg";
 import icClock from "@/public/ic_clock.svg";
 import icCorrect from "@/public/ic_correct.svg";
 import icInCorrect from "@/public/ic_incorrect.svg";
-import { deepEqual } from "@/utils";
+import { convertTime, deepEqual } from "@/utils";
 
 type Props = {
   quizList: QuizInterface[];
   userAnswers: any;
-  timeDone: string;
+  finishTime: string;
 };
 
-const QuizReview = ({ quizList, userAnswers, timeDone }: Props) => {
+const QuizReview = ({ quizList, userAnswers, finishTime }: Props) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const checkCorrect = (questionIndex: number, userAnswer: number[]) => {
@@ -47,7 +47,6 @@ const QuizReview = ({ quizList, userAnswers, timeDone }: Props) => {
 
   return (
     <div className={styles.container}>
-      <Icon src={icClock} style={{ fill: "blue" }} />
       <div className={styles.quizListContainer}>
         <p style={{ minWidth: 140 }}>Progress: {progress}</p>
         <ul className={styles.progressBar}>
@@ -86,13 +85,15 @@ const QuizReview = ({ quizList, userAnswers, timeDone }: Props) => {
               style={{
                 marginBottom: 10,
                 display: "flex",
-                justifyContent: "space-between",
               }}
             >
-              <p>
+              <p style={{ flex: 1 }}>
                 Question {selectedIndex + 1} / {quizList.length}
               </p>
-              <p>{timeDone}</p>
+              <Icon src={icClock} width={20} height={20} />
+              <p style={{ marginLeft: 5, minWidth: 60 }}>
+                {convertTime(parseInt(finishTime))}
+              </p>
             </div>
             <h3 style={{ marginBottom: 10 }}>
               {checkCorrect(selectedIndex, userAnswers[selectedIndex]) ? (

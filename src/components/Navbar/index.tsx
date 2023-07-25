@@ -4,13 +4,17 @@ import styles from "./styles.module.css";
 import { NavLinks } from "@/constant";
 import ThemeButton from "../ThemeButton";
 import icUser from "../../../public/ic_user.svg";
+import { getServerSession } from "next-auth";
+import { authConfig } from "@/lib/auth";
+import SignoutButton from "../SignoutButton";
+const Navbar = async () => {
+  const session = await getServerSession(authConfig);
 
-const Navbar = () => {
   return (
     <nav className={styles.wrapper}>
       <Link href="/">
         <span className={styles.logoText}>
-          Next<span className={styles.logoTextMain}>Prep</span>
+          next<span className={styles.logoTextMain}>prep</span>
         </span>
       </Link>
       <ul className={styles.linksWrapper}>
@@ -21,9 +25,13 @@ const Navbar = () => {
         ))}
       </ul>
       <ThemeButton />
-      <div className={styles.userWrapper}>
-        <Image src={icUser} alt="avatar" className={styles.userIcon} />
-      </div>
+      {!session ? (
+        <div className={styles.userWrapper}>
+          <Image src={icUser} alt="avatar" className={styles.userIcon} />
+        </div>
+      ) : (
+        <SignoutButton />
+      )}
     </nav>
   );
 };

@@ -1,0 +1,21 @@
+.container {
+    color: var(--gray-dark);
+    font-family: var(--primary-font);
+    padding: 90px 120px;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.container p:nth-child(2) {
+    margin: 12px 0;
+}
+.container button {
+    color: white;
+    border: 0;
+    padding: 10px 25px;
+    background-color: var(--primary-color);
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+
+}
