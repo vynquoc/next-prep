@@ -48,7 +48,7 @@ const QuizResult = ({
   };
   return (
     <div className={styles.container}>
-      <h4>You've completed the Frontend quiz.</h4>
+      <h4>You&apos;ve completed the Frontend quiz.</h4>
       <div className={styles.result}>
         <p>
           <span>Time: </span>
