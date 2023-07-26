@@ -2,3 +2,10 @@
     height: 100%;
     background-color: #1E1E1E;
 }
+
+.warningLogin {
+    padding: 3px 5px;
+    font-family: var(--primary-font);
+    font-weight: 500;
+    background-color: rgb(219, 127, 127);
+}

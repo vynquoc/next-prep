@@ -1,7 +1,7 @@
 export const NavLinks = [
   { href: "/challenges", text: "Coding Questions" },
   { href: "/quiz", text: "Quiz" },
-  { href: "/trivia", text: "Trivia Questions" },
+  { href: "/trivia-questions", text: "Trivia Questions" },
 ];
 
 export const AdminTabs = [

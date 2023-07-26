@@ -1,0 +1,64 @@
+.userWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   border: 1px solid #ddd;
+   border-radius: 50%;
+   width: 35px;
+   height: 35px;
+   margin-left: 15px;
+   position: relative;
+}
+
+.dropdown {
+    width: 150px;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    padding: 20px;
+    margin-top: 15px;
+    border-radius: 4px;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
+    transition:  0.3s;
+    z-index: 9999;
+}
+
+.dropdown::before {
+    content: "";
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid white; /* Change the color as needed */
+    top: -10px;
+    right: 5px;
+    position: absolute;
+}
+
+.dropdown p {
+    color: var(--gray-dark);
+    font-weight: 500;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 15px;
+
+}
+
+.dropdown button {
+    background-color: var(--primary-color);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-weight: 600;
+    width: 100%;
+    cursor: pointer;
+}
+
+.userWrapper:hover {
+    cursor: pointer;
+}
+
+.dropdownMenu {
+    border: 1px solid green
+}
+

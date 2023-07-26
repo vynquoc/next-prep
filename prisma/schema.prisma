@@ -54,6 +54,7 @@ model User {
   accounts       Account[]
   sessions       Session[]
   QuizSubmission QuizSubmission[]
+  UserCode       UserCode[]
 }
 
 model VerificationToken {
@@ -110,4 +111,13 @@ model Challenge {
   solution        String?
   difficulty      String?
   createdAt       DateTime @default(now())
+}
+
+model UserCode {
+  id        String @id @default(uuid())
+  userId    String
+  challenge String
+  code      String @db.Text
+
+  user User @relation(fields: [userId], references: [id])
 }

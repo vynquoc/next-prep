@@ -1,15 +1,11 @@
 import Link from "next/link";
-import Image from "next/image";
 import styles from "./styles.module.css";
 import { NavLinks } from "@/constant";
 import ThemeButton from "../ThemeButton";
-import icUser from "../../../public/ic_user.svg";
-import { getServerSession } from "next-auth";
-import { authConfig } from "@/lib/auth";
-import SignoutButton from "../SignoutButton";
-const Navbar = async () => {
-  const session = await getServerSession(authConfig);
 
+import User from "../User";
+
+const Navbar = async () => {
   return (
     <nav className={styles.wrapper}>
       <Link href="/">
@@ -25,13 +21,7 @@ const Navbar = async () => {
         ))}
       </ul>
       <ThemeButton />
-      {!session ? (
-        <div className={styles.userWrapper}>
-          <Image src={icUser} alt="avatar" className={styles.userIcon} />
-        </div>
-      ) : (
-        <SignoutButton />
-      )}
+      <User />
     </nav>
   );
 };

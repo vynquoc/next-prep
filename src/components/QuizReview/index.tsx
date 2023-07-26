@@ -57,23 +57,22 @@ const QuizReview = ({ quizList, userAnswers, finishTime }: Props) => {
               onClick={() => handleSelectQuestion(index)}
             >
               <span style={{ marginRight: 6 }}>Question {index + 1}</span>
-              <span>
-                {checkCorrect(index, userAnswers[index]) ? (
-                  <Icon
-                    src={icCorrect}
-                    width={15}
-                    height={15}
-                    style={{ display: "inline" }}
-                  />
-                ) : (
-                  <Icon
-                    src={icInCorrect}
-                    width={13}
-                    height={13}
-                    style={{ display: "inline" }}
-                  />
-                )}
-              </span>
+
+              {checkCorrect(index, userAnswers[index]) ? (
+                <Icon
+                  src={icCorrect}
+                  width={15}
+                  height={15}
+                  style={{ display: "inline" }}
+                />
+              ) : (
+                <Icon
+                  src={icInCorrect}
+                  width={13}
+                  height={13}
+                  style={{ display: "inline" }}
+                />
+              )}
             </li>
           ))}
         </ul>

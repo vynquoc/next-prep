@@ -1,3 +1,4 @@
+import { User } from "next-auth";
 export type QuizForm = {
   title: string;
   prompt: string;
@@ -17,7 +18,8 @@ export interface QuizInterface {
   correctAnswers: number[];
 }
 
-export interface UserInterface {
+export interface UserInterface extends User {
+  id: string;
   name: string;
   email: string;
   role: string;
@@ -43,4 +45,11 @@ export interface ChallengeInterface {
   solution?: string;
   difficulty?: string;
   createdAt?: Date;
+}
+
+export interface UserCodeInterface {
+  id: string;
+  code: string;
+  challenge: string;
+  userId: string;
 }

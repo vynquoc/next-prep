@@ -7,7 +7,7 @@ export const createChallenge = async (data: ChallengeInterface) => {
 };
 
 export const getChallengeBySlug = async (slug: string) => {
-  const challenge = await db.challenge.findFirst({ where: { slug: slug } });
+  const challenge = await db.challenge.findUnique({ where: { slug: slug } });
   return challenge;
 };
 

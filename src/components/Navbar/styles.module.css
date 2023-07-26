@@ -4,6 +4,7 @@
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid #ddd;
+    font-family: var(--primary-font);
 }
 
 .logoText {
@@ -23,6 +24,11 @@
     margin-left: 50px;
 }
 
+.link {
+    color: var(--gray-dark);
+
+}
+
 .link:not(:first-child) {
     margin-left: 35px;
 }
@@ -31,23 +37,3 @@
     color: var(--primary-color);
 }
 
-.userWrapper {
-display: flex;
-    align-items: center;
-justify-content: center;
-   border: 1px solid #ddd;
-   border-radius: 50%;
-   width: 35px;
-   height: 35px;
-   padding: 5px;
-   margin-left: 15px;
-}
-
-.userWrapper:hover {
-    cursor: pointer;
-}
-
-.userIcon {
-    width: 20px;
-    height: 20px;
-}

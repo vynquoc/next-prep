@@ -8,9 +8,11 @@ type Props = {
 };
 const Icon = ({ src, width, height, style }: Props) => {
   return (
-    <div style={style}>
-      <Image src={src} alt="icon" style={{ width: width, height: height }} />
-    </div>
+    <Image
+      src={src}
+      alt="icon"
+      style={{ width: width, height: height, ...style }}
+    />
   );
 };
 

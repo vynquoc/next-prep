@@ -18,7 +18,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body>
-        {user?.role === "user" ? (
+        {/* {user?.role === "user" ? (
           <Providers>
             <Navbar />
             <main>
@@ -34,7 +34,14 @@ export default async function RootLayout({
               <div id="modalPortal"></div>
             </main>
           </Providers>
-        )}
+        )} */}
+        <Providers>
+          <Navbar />
+          <main>
+            {children}
+            <div id="modalPortal"></div>
+          </main>
+        </Providers>
       </body>
     </html>
   );
