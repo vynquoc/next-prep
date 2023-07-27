@@ -11,7 +11,8 @@
 }
 
 .dropdown {
-    width: 150px;
+    width: 200px;
+    min-width: 200px;
     position: absolute;
     top: 100%;
     right: 0;
@@ -20,7 +21,6 @@
     margin-top: 15px;
     border-radius: 4px;
     box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
-    transition:  0.3s;
     z-index: 9999;
 }
 
@@ -39,8 +39,7 @@
     font-weight: 500;
     font-size: 12px;
     text-align: center;
-    margin-top: 15px;
-
+    margin-bottom: 15px;
 }
 
 .dropdown button {

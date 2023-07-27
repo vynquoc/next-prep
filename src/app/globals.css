@@ -6,11 +6,13 @@
 
   --black: #000;
   --white: #fff;
+  --gray-light: #d6d6d6;
   --gray: #858484;
   --gray-dark: #697179;
-  --primary-color: #145DA0;
-  --primary-color-dark : #0C2D48;
+  --primary-color: #2b76bc;
+  --primary-color-dark : #205a88;
   --primary-color-light: #B1D4E0;
+  --primary-bg: #22262D;
 }
 * {
   padding: 0;
@@ -33,6 +35,7 @@ body {
 
 main {
   height: 100%;
+  background-color: var(--primary-bg);
 }
 
 .split {

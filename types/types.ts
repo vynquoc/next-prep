@@ -45,6 +45,8 @@ export interface ChallengeInterface {
   };
   solution?: string;
   difficulty?: string;
+  tags?: string[];
+  shortDescription?: string;
   createdAt?: Date;
 }
 

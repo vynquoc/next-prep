@@ -105,10 +105,20 @@ const CodeWorkspace = ({ isReact, challenge, userCode, user }: Props) => {
             <Editor code={js} onChange={debouncedSetJs} />
           )}
           {currentTab === "CSS" && (
-            <Editor language="css" code={css} onChange={debouncedSetCss} />
+            <Editor
+              language="css"
+              code={css}
+              editable={challenge?.languageToWrite === "css"}
+              onChange={debouncedSetCss}
+            />
           )}
           {currentTab === "HTML" && (
-            <Editor language="html" code={html} onChange={debouncedSetHtml} />
+            <Editor
+              language="html"
+              editable={challenge?.languageToWrite === "html"}
+              code={html}
+              onChange={debouncedSetHtml}
+            />
           )}
         </div>
         <LivePreview

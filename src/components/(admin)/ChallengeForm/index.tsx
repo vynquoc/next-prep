@@ -22,6 +22,8 @@ const ChallengeForm = ({ challenge, mode }: Props) => {
     promptCode: challenge?.promptCode || { css: "", js: "", html: "" },
     reactConfig: challenge?.reactConfig || { componentName: "" },
     solution: challenge?.solution || "",
+    shortDescription: challenge?.shortDescription || "",
+    tags: challenge?.tags || ["react", "html", "js"],
     difficulty: challenge?.difficulty || "",
   });
 
@@ -89,6 +91,12 @@ const ChallengeForm = ({ challenge, mode }: Props) => {
         placeholder="Enter challenge name"
         state={form.name}
         onFieldChange={(value) => handleChange("name", value)}
+      />
+      <FormField
+        title="Description"
+        placeholder="Enter challenge name"
+        state={form.shortDescription}
+        onFieldChange={(value) => handleChange("shortDescription", value)}
       />
       <FormField
         title="Category"

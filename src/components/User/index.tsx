@@ -19,7 +19,10 @@ const User = () => {
         <div className={styles.dropdown}>
           {user ? (
             <>
-              <p>{user?.name}</p>
+              <p>
+                <span>Welcome, </span>
+                {user?.name}
+              </p>
               <button onClick={() => signOut()}>Logout</button>
             </>
           ) : (

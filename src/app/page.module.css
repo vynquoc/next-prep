@@ -1,0 +1,54 @@
+.container {
+    font-family: var(--primary-font);
+}
+
+.topBanner {
+    text-align: center;
+    padding: 120px;
+    background-color: #22262D;
+    color: var(--gray-light);
+
+    /* background: linear-gradient(90deg, rgba(177,212,224,1) 0%, rgba(32,118,198,1) 50%, rgba(32,90,136,1) 100%); */
+}
+
+.topBanner .gifImg {
+    width: 230px;
+    height: 230px;
+    margin-top: 30px;
+}
+
+.topBanner h1 {
+    font-size: 2.6rem;
+}
+
+.featuresContainer {
+    text-align: center;
+}
+
+.features {
+    display: flex;
+    gap: 20px;
+}
+
+.featureItem {
+    width: 33%;
+    background-color: #21242B;
+    padding: 2rem;
+    color: white;
+    border-radius: 1.2rem;
+    border: 1px solid var(--gray-dark)
+}
+
+.featureTitle {
+    margin: 20px 0;
+}
+
+.featureImg {
+    width: 200px;
+    height: 100px;
+}
+
+.featureDesc {
+    line-height: 1.6rem;
+    letter-spacing: 1.2px;
+}
