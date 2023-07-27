@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { CSSProperties, useState } from "react";
 import TabBar from "../TabBar";
 
 type Props = {
@@ -7,6 +7,8 @@ type Props = {
   css?: string;
   js?: string;
   componentName?: string;
+  style?: CSSProperties;
+  backgroundColor?: string;
   hasTabs?: boolean;
 };
 
@@ -17,6 +19,8 @@ const LivePreview = ({
   css,
   js,
   isReact = false,
+  style,
+  backgroundColor,
   componentName,
   hasTabs = false,
 }: Props) => {
@@ -60,7 +64,7 @@ const LivePreview = ({
     `;
 
   return (
-    <div>
+    <div style={{ backgroundColor: backgroundColor, ...style }}>
       {hasTabs && (
         <TabBar
           tabs={tabs}

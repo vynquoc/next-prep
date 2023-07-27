@@ -6,7 +6,6 @@ import { AdminTabs } from "@/constant";
 
 const SideBarAdmin = () => {
   const pathname = usePathname();
-  console.log(pathname);
   return (
     <div className={styles.sideBar}>
       <ul className={styles.routesWrapper}>

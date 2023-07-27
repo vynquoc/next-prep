@@ -7,6 +7,8 @@ type Props = {
   state?: string;
   placeholder?: string;
   isTextArea?: boolean;
+  width?: string;
+  checked?: boolean;
   onFieldChange: (value: string) => void;
 };
 
@@ -16,10 +18,12 @@ const FormField = ({
   state,
   placeholder,
   isTextArea,
+  width,
+  checked,
   onFieldChange,
 }: Props) => {
   return (
-    <div className={styles.fieldWrapper}>
+    <div className={styles.fieldWrapper} style={{ width: width }}>
       {type !== "radio" && <label className={styles.fieldLabel}>{title}</label>}
       {isTextArea ? (
         <textarea
@@ -32,8 +36,8 @@ const FormField = ({
         <input
           type={type || "text"}
           placeholder={placeholder}
-          required
           value={state}
+          checked={checked}
           onChange={(e) => onFieldChange(e.target.value)}
         />
       )}

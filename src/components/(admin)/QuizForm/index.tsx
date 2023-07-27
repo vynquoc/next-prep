@@ -8,6 +8,9 @@ import Editor from "@/components/Editor";
 import Icon from "@/components/Icon";
 import icPlus from "@/public/ic_plus.svg";
 import icMinus from "@/public/ic_minus.svg";
+import FormGroup from "@/components/FormGroup";
+import LoadingIndicator from "@/components/LoadingIndicator";
+import { useRouter } from "next/navigation";
 
 type Props = {
   quiz?: QuizInterface;
@@ -23,6 +26,19 @@ const QuizForm = ({ quiz, mode }: Props) => {
     correctAnswers: quiz?.correctAnswers || [],
     codeSnippet: quiz?.codeSnippet || "",
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
+  const handleReset = () => {
+    setForm({
+      title: quiz?.title || "",
+      prompt: quiz?.prompt || "",
+      kind: quiz?.kind || "single",
+      choices: quiz?.choices || ["", "", "", ""],
+      correctAnswers: quiz?.correctAnswers || [],
+      codeSnippet: quiz?.codeSnippet || "",
+    });
+  };
 
   const handleChange = (name: keyof QuizForm, value: string) => {
     setForm({ ...form, [name]: value });
@@ -58,42 +74,68 @@ const QuizForm = ({ quiz, mode }: Props) => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (mode === "create") {
-      const response = await fetch("/api/quiz", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
-      });
-    } else {
-      const response = await fetch(`/api/quiz/${quiz?.id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
-      });
+    setIsLoading(true);
+    try {
+      if (mode === "create") {
+        const response = await fetch("/api/quiz", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(form),
+        });
+        if (response.statusText === "OK") {
+          router.push("/admin/manage-quizzes");
+        }
+      } else {
+        const response = await fetch(`/api/quiz/${quiz?.id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(form),
+        });
+        if (response.statusText === "OK") {
+          router.push("/admin/manage-quizzes");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className={styles.formWrapper}>
+      <div className={styles.formHeader}>
+        <h1>{mode === "create" ? "Create Quiz" : `Edit Quiz`}</h1>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          {isLoading && (
+            <LoadingIndicator color="var(--primary-color)" width={25} />
+          )}
+          <button className="button" onClick={handleReset}>
+            Reset
+          </button>
+          <button className="button">Save</button>
+        </div>
+      </div>
       <FormField
         title="Title"
         placeholder="Enter quiz title"
         state={form.title}
         onFieldChange={(value) => handleChange("title", value)}
       />
-      <div style={{ display: "flex", width: "700px", gap: "10px" }}>
-        <div style={{ width: "50%" }}>
-          <FormField
-            title="Prompt"
-            state={form.prompt}
-            isTextArea
-            onFieldChange={(value) => handleChange("prompt", value)}
-          />
-        </div>
+
+      <FormGroup>
+        <FormField
+          width="50%"
+          title="Prompt"
+          state={form.prompt}
+          isTextArea
+          onFieldChange={(value) => handleChange("prompt", value)}
+        />
+
         <div style={{ width: "50%" }}>
           <label
             style={{
@@ -114,9 +156,8 @@ const QuizForm = ({ quiz, mode }: Props) => {
             onChange={(value: any) => handleChange("codeSnippet", value)}
           />
         </div>
-      </div>
-
-      <div style={{ display: "flex", marginBottom: 10 }}>
+      </FormGroup>
+      <FormGroup>
         <CheckBox
           label="Single choice"
           checked={form.kind === "single"}
@@ -127,7 +168,7 @@ const QuizForm = ({ quiz, mode }: Props) => {
           checked={form.kind === "multiple"}
           onChange={() => handleCheckbox("multiple")}
         />
-      </div>
+      </FormGroup>
 
       {form.choices.map((choice, index) => (
         <div
@@ -182,7 +223,6 @@ const QuizForm = ({ quiz, mode }: Props) => {
       >
         <Icon src={icPlus} width={30} height={30} />
       </button>
-      <button type="submit">Submit</button>
     </form>
   );
 };

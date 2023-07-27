@@ -38,6 +38,18 @@ main {
   background-color: var(--primary-bg);
 }
 
+.button {
+  background-color: var(--primary-color);
+  border: none;
+  padding: 4px 8px;
+  text-align: center;
+  color: white;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
 .split {
   display: flex;
   flex-direction: row;

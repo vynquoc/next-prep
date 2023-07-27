@@ -20,6 +20,7 @@ const languages: any = {
   html: html,
   css: less,
   javascript: () => javascript({ jsx: true }),
+  jsx: () => javascript({ jsx: true }),
 };
 
 const Editor = ({

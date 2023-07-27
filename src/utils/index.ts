@@ -7,7 +7,7 @@ export function debounce(callback: any, delay: number) {
 }
 
 export function slugify(str: string): string {
-  return str.toLowerCase().replace(/\s+/g, "-");
+  return str.trim().toLowerCase().replace(/\s+/g, "-");
 }
 
 export function deepEqual<T>(array1: T[], array2: T[]): boolean {

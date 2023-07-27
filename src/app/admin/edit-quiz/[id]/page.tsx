@@ -9,7 +9,6 @@ type Props = {
 };
 const EditQuiz = async ({ params: { id } }: Props) => {
   const quiz = (await getQuizById(id)) as QuizInterface;
-  console.log(quiz);
   return <QuizForm quiz={quiz} mode="update" />;
 };
 

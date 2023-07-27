@@ -31,7 +31,7 @@ const CodeWorkspace = ({ isReact, challenge, userCode, user }: Props) => {
       challenge?.promptCode?.css
   );
   const [js, setJs] = useState(
-    ((challenge?.languageToWrite === "js" ||
+    ((challenge?.languageToWrite === "javascript" ||
       challenge?.languageToWrite === "jsx") &&
       userCode?.code) ||
       challenge?.promptCode?.js

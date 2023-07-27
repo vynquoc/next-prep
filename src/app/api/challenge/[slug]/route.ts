@@ -1,5 +1,6 @@
 import { getChallengeBySlug, updateChallenge } from "@/prisma/challenge";
-import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: Request) {
   try {
@@ -14,10 +15,11 @@ export async function GET(request: Request) {
   }
 }
 
-export async function PATCH(request: Request) {
+export async function PATCH(request: NextRequest) {
   try {
     const slug = request.url.split("/challenge/")[1];
     const data = await request.json();
+
     const challenge = await updateChallenge(slug, data);
     return new NextResponse(JSON.stringify(challenge), {
       status: 200,

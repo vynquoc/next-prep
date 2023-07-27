@@ -1,6 +1,8 @@
 .adminLayout {
     display: flex;
+    background-color: white;
 }
 .mainContent {
     padding: 20px;
+    width: 100%;
 }
