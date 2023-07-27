@@ -6,7 +6,9 @@ const CodingChallenges = async () => {
   return (
     <div>
       {challenges.map((challenge) => (
-        <Link href={`/challenges/${challenge.slug}`}>{challenge.name}</Link>
+        <Link key={challenge.id} href={`/challenges/${challenge.slug}`}>
+          {challenge.name}
+        </Link>
       ))}
     </div>
   );
