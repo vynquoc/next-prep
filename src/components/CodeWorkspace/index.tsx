@@ -1,5 +1,6 @@
 "use client";
 import React, { useCallback, useEffect, useState } from "react";
+import { User } from "next-auth";
 import CustomSplit from "../Split";
 import styles from "./styles.module.css";
 import Editor from "../Editor";
@@ -7,18 +8,18 @@ import LivePreview from "../LivePreview";
 import TabBar from "../TabBar";
 import { ChallengeInterface, UserCodeInterface } from "@/types/types";
 import { debounce } from "@/utils";
-import { useSession } from "next-auth/react";
 
 type Props = {
   isReact?: boolean;
   challenge?: ChallengeInterface;
   userCode?: UserCodeInterface;
+  user?: User;
 };
 
 const tabs = ["JAVASCRIPT", "CSS", "HTML"];
-const delay = 500;
+const delay = 300;
 
-const CodeWorkspace = ({ isReact, challenge, userCode }: Props) => {
+const CodeWorkspace = ({ isReact, challenge, userCode, user }: Props) => {
   const [currentTab, setCurrentTab] = useState(tabs[0]);
   const [isLoading, setIsLoading] = useState(true);
   const [html, setHtml] = useState(
@@ -35,9 +36,8 @@ const CodeWorkspace = ({ isReact, challenge, userCode }: Props) => {
       userCode?.code) ||
       challenge?.promptCode?.js
   );
-  const session = useSession();
-  const user = session?.data?.user;
-  const updateUserCode = async (code: string) => {
+
+  const updateUserCode = useCallback(async (code: string) => {
     await fetch("/api/user-code", {
       method: "PATCH",
       headers: {
@@ -46,7 +46,7 @@ const CodeWorkspace = ({ isReact, challenge, userCode }: Props) => {
       body: JSON.stringify({ id: userCode?.id, code: code }),
     });
     setIsLoading(false);
-  };
+  }, []);
 
   const createUserCode = async (code: string) => {
     await fetch("/api/user-code", {
@@ -82,25 +82,25 @@ const CodeWorkspace = ({ isReact, challenge, userCode }: Props) => {
   const debouncedSetCss = debounce(setCss, delay);
 
   return (
-    <div style={{ height: "100%" }}>
+    <div style={{ height: "100vh" }}>
       <TabBar
         tabs={tabs}
         onTabChange={(tab: string) => setCurrentTab(tab)}
         currentTab={currentTab}
         isLoading={isLoading}
       />
-      {!user && (
-        <div className={styles.warningLogin}>
-          Please login to save your code
-        </div>
-      )}
+
       <CustomSplit
-        className={styles.split}
         direction="vertical"
-        sizes={[60, 40]}
-        minSize={60}
+        sizes={[50, 50]}
+        style={{ height: "calc(100vh - 90px)" }}
       >
-        <div style={{ overflow: "auto", width: "100%" }}>
+        <div style={{ overflow: "auto" }}>
+          {!user && (
+            <div className={styles.warningLogin}>
+              Please login to save your code
+            </div>
+          )}
           {currentTab === "JAVASCRIPT" && (
             <Editor code={js} onChange={debouncedSetJs} />
           )}
@@ -111,15 +111,14 @@ const CodeWorkspace = ({ isReact, challenge, userCode }: Props) => {
             <Editor language="html" code={html} onChange={debouncedSetHtml} />
           )}
         </div>
-        <div style={{ overflow: "auto", width: "100%" }}>
-          <LivePreview
-            css={css}
-            js={js}
-            html={html}
-            isReact={isReact}
-            componentName={challenge?.reactConfig?.componentName}
-          />
-        </div>
+        <LivePreview
+          css={css}
+          js={js}
+          html={html}
+          isReact={isReact}
+          componentName={challenge?.reactConfig?.componentName}
+          hasTabs={true}
+        />
       </CustomSplit>
     </div>
   );

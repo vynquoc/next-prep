@@ -3,15 +3,15 @@ import { getAllQuizzes } from "@/prisma/quiz";
 import { QuizInterface } from "@/types/types";
 import QuizSection from "@/components/QuizSection";
 import { db } from "@/lib/db";
-import { getServerSession } from "next-auth";
+import { getCurrentUser } from "@/lib/session";
 
 const QuizPage = async () => {
-  const session = await getServerSession();
+  const user = await getCurrentUser();
   const quizList = (await getAllQuizzes()) as QuizInterface[];
   let submissons = null;
-  if (session) {
+  if (user) {
     submissons = await db.quizSubmission.findMany({
-      where: { userId: session.user.id },
+      where: { userId: user.id },
       orderBy: {
         createdAt: "desc",
       },

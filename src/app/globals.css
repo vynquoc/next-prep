@@ -8,8 +8,9 @@
   --white: #fff;
   --gray: #858484;
   --gray-dark: #697179;
-  --primary-color: #3273a8;
-  --primary-color-dark : #113d62;
+  --primary-color: #145DA0;
+  --primary-color-dark : #0C2D48;
+  --primary-color-light: #B1D4E0;
 }
 * {
   padding: 0;
@@ -17,12 +18,6 @@
   box-sizing: border-box;
 }
 
-body {
-  height: 100vh;
-}
-main {
-  height: 100%;
-}
 a {
   text-decoration: none;
 }
@@ -31,15 +26,29 @@ li {
   list-style: none;
   cursor: pointer;
 }
+
+body {
+  height: 100vh;
+}
+
+main {
+  height: 100%;
+}
+
 .split {
   display: flex;
   flex-direction: row;
+  background-color: #1e1e1e;
 }
 
 .gutter {
-  background-color: #eee;
+  background-color: var(--primary-color-dark);
   background-repeat: no-repeat;
   background-position: 50%;
+}
+
+.gutter:hover {
+  background-color: var(--primary-color-light);
 }
 
 .gutter.gutter-horizontal {
@@ -64,6 +73,18 @@ li {
   background-color: var(--primary-color);
   padding: 0 3px;
   border-radius: 2px;
+}
+
+::-webkit-scrollbar {
+	width: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+	background: #282828;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #4d4d4d;
 }
 
 input:where([type="checkbox"], [type="radio"]) {

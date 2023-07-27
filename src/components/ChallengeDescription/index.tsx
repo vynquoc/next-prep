@@ -16,7 +16,7 @@ const ChallengeDescription = ({ challenge }: Props) => {
   const [currentTab, setCurrentTab] = useState(tabs[0]);
 
   return (
-    <div style={{ height: "100%" }}>
+    <div style={{ height: "100vh" }}>
       <TabBar
         tabs={tabs}
         currentTab={currentTab}
@@ -24,20 +24,16 @@ const ChallengeDescription = ({ challenge }: Props) => {
       />
       <CustomSplit
         direction="vertical"
-        sizes={[60, 40]}
-        minSize={60}
-        style={{ height: "100%", backgroundColor: "#1E1E1E" }}
+        sizes={[50, 50]}
+        style={{ height: "calc(100vh - 90px)" }}
       >
-        <div style={{ overflow: "auto", width: "100%" }}>
+        <div style={{ overflow: "auto" }}>
           {currentTab === "Prompt" && <ChallengePrompt challenge={challenge} />}
-
           {currentTab === "Solution" && (
             <ChallengeSolution code={challenge?.solution} />
           )}
         </div>
-        <div style={{ overflow: "auto", width: "100%" }}>
-          <ChallengeDemo challenge={challenge} />
-        </div>
+        <ChallengeDemo challenge={challenge} />
       </CustomSplit>
     </div>
   );

@@ -7,6 +7,7 @@ type Props = {
   css?: string;
   js?: string;
   componentName?: string;
+  hasTabs?: boolean;
 };
 
 const tabs = ["Output"];
@@ -17,6 +18,7 @@ const LivePreview = ({
   js,
   isReact = false,
   componentName,
+  hasTabs = false,
 }: Props) => {
   const [currentTab, setCurrentTab] = useState(tabs[0]);
 
@@ -25,7 +27,9 @@ const LivePreview = ({
     <html>
       <head>
         <meta charset="utf-8">
-        <style>${css}</style>
+        <style>
+          ${css}
+        </style>
         <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
         <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
         <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
@@ -56,13 +60,20 @@ const LivePreview = ({
     `;
 
   return (
-    <>
+    <div>
+      {hasTabs && (
+        <TabBar
+          tabs={tabs}
+          onTabChange={(tab) => setCurrentTab(tab)}
+          currentTab={currentTab}
+        />
+      )}
       {isReact ? (
         <iframe
           srcDoc={iframeReact}
           sandbox="allow-scripts"
           width="100%"
-          height="100%"
+          height="300px"
           frameBorder="0"
         />
       ) : (
@@ -70,11 +81,11 @@ const LivePreview = ({
           srcDoc={iframeJs}
           sandbox="allow-scripts"
           width="100%"
-          height="100%"
+          height="300px"
           frameBorder="0"
         />
       )}
-    </>
+    </div>
   );
 };
 

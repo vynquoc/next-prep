@@ -22,7 +22,6 @@ const ChallengePrompt = ({ challenge }: any) => {
           modify it.
         </p>
       </div>
-      {/* <ReactMarkdown children={challenge?.prompt} remarkPlugins={[remarkGfm]} /> */}
       <ReactMarkdown className="markdown">{challenge?.prompt}</ReactMarkdown>
       <h3 style={{ margin: "10px 0" }}>Hints</h3>
       {challenge?.hints.map((hint: string, index: number) => (

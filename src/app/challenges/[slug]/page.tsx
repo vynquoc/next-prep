@@ -25,21 +25,23 @@ const ChallengePage = async ({
   }
 
   return (
-    <Suspense fallback={<h1>Loading...</h1>}>
-      <CustomSplit className="split" sizes={[40, 60]}>
-        <div style={{ height: "100vh" }}>
-          <ChallengeDescription challenge={challenge} />
-        </div>
-        <div style={{ height: "100vh" }}>
-          <CodeWorkspace
-            key={challenge?.id}
-            isReact={challenge?.languageToWrite === "jsx"}
-            challenge={challenge}
-            userCode={userCode}
-          />
-        </div>
+    <div
+      style={{
+        padding: 15,
+        backgroundColor: "var(--primary-color-dark)",
+      }}
+    >
+      <CustomSplit sizes={[40, 60]} minSize={100} className="split">
+        <ChallengeDescription challenge={challenge} />
+        <CodeWorkspace
+          user={user}
+          key={challenge?.id}
+          isReact={challenge?.languageToWrite === "jsx"}
+          challenge={challenge}
+          userCode={userCode}
+        />
       </CustomSplit>
-    </Suspense>
+    </div>
   );
 };
 

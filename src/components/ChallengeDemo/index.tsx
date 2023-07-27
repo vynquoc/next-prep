@@ -11,7 +11,7 @@ type Props = {
 const ChallengeDemo = ({ challenge }: Props) => {
   const [currentTab, setCurrentTab] = useState(tabs[0]);
   return (
-    <>
+    <div>
       <TabBar
         tabs={tabs}
         currentTab={currentTab}
@@ -24,7 +24,7 @@ const ChallengeDemo = ({ challenge }: Props) => {
         componentName={challenge?.reactConfig.componentName}
         isReact={challenge?.languageToWrite === "jsx"}
       />
-    </>
+    </div>
   );
 };
 

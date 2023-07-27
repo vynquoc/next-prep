@@ -1,3 +1,6 @@
+.container {
+    overflow: auto;
+}
 .promptContainer {
     color: var(--white);
     font-family: var(--primary-font);

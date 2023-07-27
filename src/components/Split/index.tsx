@@ -5,7 +5,7 @@ type Props = {
   sizes?: number[];
   direction?: "horizontal" | "vertical";
   children: React.ReactNode;
-  minSize?: number;
+  minSize?: number | number[];
   style?: React.CSSProperties;
 };
 const CustomSplit = ({

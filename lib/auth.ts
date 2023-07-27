@@ -20,7 +20,11 @@ export const authConfig: NextAuthOptions = {
         if (!credentials || !credentials.email || !credentials.password) {
           return null;
         }
-        const response = await fetch("http://localhost:3000/api/login", {
+        const url =
+          process.env.NODE_ENV === "production"
+            ? "https://next-prep.vercel.app/api/login"
+            : "http://localhost:3000/api/login";
+        const response = await fetch(url, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
