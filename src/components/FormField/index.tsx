@@ -10,6 +10,7 @@ type Props = {
   width?: string;
   checked?: boolean;
   style?: React.CSSProperties;
+  textAreaHeight?: string;
   onFieldChange: (value: string) => void;
 };
 
@@ -22,6 +23,7 @@ const FormField = ({
   width,
   checked,
   style,
+  textAreaHeight,
   onFieldChange,
 }: Props) => {
   return (
@@ -30,6 +32,7 @@ const FormField = ({
       {isTextArea ? (
         <textarea
           className={styles.textArea}
+          style={{ height: textAreaHeight }}
           placeholder={placeholder}
           value={state}
           onChange={(e) => onFieldChange(e.target.value)}

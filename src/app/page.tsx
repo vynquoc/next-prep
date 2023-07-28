@@ -22,7 +22,7 @@ export default function Home() {
               <Image src={home1} alt="home 1" className={styles.featureImg} />
               <h3 className={styles.featureTitle}>React focused</h3>
               <p className={styles.featureDesc}>
-                Although any web developer can use reacterry, there's no denying
+                Although any web developer can use nextprep, there's no denying
                 that it was built by React devs, for React dev.
               </p>
             </div>

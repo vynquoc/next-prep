@@ -22,39 +22,40 @@ const icons = {
 
 const ChallengeItem = ({ challenge }: Props) => {
   return (
-    <Link href={`/challenges/${challenge.slug}`}>
-      <div className={styles.challengeItem}>
-        <div>
-          <h4>{challenge.name}</h4>
-          <p className={styles.challengePrompt}>{challenge.shortDescription}</p>
-          <div className={styles.iconContainer}>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <Icon src={icFlame} width={18} height={18} />
-              <span className={styles.challengeDifficult}>
-                {`${challenge.difficulty
-                  ?.charAt(0)
-                  .toUpperCase()}${challenge.difficulty?.slice(1)}`}
-              </span>
-            </div>
-            <div className={styles.tagContainer}>
-              {challenge?.tags?.map((tag) => (
-                <Icon
-                  key={tag}
-                  src={icons[tag as keyof typeof icons]}
-                  width={18}
-                  height={18}
-                />
-              ))}
-            </div>
+    <Link
+      className={styles.challengeItem}
+      href={`/challenges/${challenge.slug}`}
+    >
+      <div>
+        <h4>{challenge.name}</h4>
+        <p className={styles.challengePrompt}>{challenge.shortDescription}</p>
+        <div className={styles.iconContainer}>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <Icon src={icFlame} width={18} height={18} />
+            <span className={styles.challengeDifficult}>
+              {`${challenge.difficulty
+                ?.charAt(0)
+                .toUpperCase()}${challenge.difficulty?.slice(1)}`}
+            </span>
+          </div>
+          <div className={styles.tagContainer}>
+            {challenge?.tags?.map((tag) => (
+              <Icon
+                key={tag}
+                src={icons[tag as keyof typeof icons]}
+                width={18}
+                height={18}
+              />
+            ))}
           </div>
         </div>
-        <Icon
-          src={icRight}
-          width={25}
-          height={25}
-          style={{ marginLeft: "auto" }}
-        />
       </div>
+      <Icon
+        src={icRight}
+        width={25}
+        height={25}
+        style={{ marginLeft: "auto" }}
+      />
     </Link>
   );
 };

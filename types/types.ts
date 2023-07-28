@@ -56,3 +56,9 @@ export interface UserCodeInterface {
   challenge: string;
   userId: string;
 }
+
+export interface TriviaQuestionInterface {
+  id: string;
+  content: string;
+  title: string;
+}

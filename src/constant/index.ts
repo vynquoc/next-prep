@@ -85,6 +85,6 @@ export const tagOptions = [
   },
   {
     displayText: "Javascript",
-    value: "javascript",
+    value: "js",
   },
 ];

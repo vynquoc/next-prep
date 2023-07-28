@@ -123,3 +123,9 @@ model UserCode {
 
   user User @relation(fields: [userId], references: [id])
 }
+
+model TriviaQuestion {
+  id      String @id @default(uuid())
+  title   String
+  content String @db.Text
+}

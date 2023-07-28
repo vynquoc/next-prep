@@ -1,5 +1,5 @@
 const TriviaQuestions = () => {
-  return <div>triv</div>;
+  return <div></div>;
 };
 
 export default TriviaQuestions;

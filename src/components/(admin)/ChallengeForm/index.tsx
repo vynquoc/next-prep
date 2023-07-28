@@ -130,7 +130,6 @@ const ChallengeForm = ({ challenge, mode }: Props) => {
           body: JSON.stringify(form),
         });
         if (response.status === 200) {
-          router.refresh();
           router.push("/admin/manage-coding-questions");
         }
       } else {
@@ -144,7 +143,6 @@ const ChallengeForm = ({ challenge, mode }: Props) => {
           body: JSON.stringify(updatedForm),
         });
         if (response.status === 200) {
-          router.refresh();
           router.push("/admin/manage-coding-questions");
         }
       }
