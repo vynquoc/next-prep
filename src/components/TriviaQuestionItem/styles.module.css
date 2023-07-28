@@ -1,0 +1,27 @@
+.questionItem {
+    color: white;
+    background-color: rgba(66, 66, 66, 0.4);
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+}
+
+.questionItem:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.itemHeader {
+    cursor: pointer;
+}
+
+.itemContent {
+    height: 0;
+    overflow: hidden;
+    transition: height ease 0.2s;
+   
+}
+
+.itemContent.open {
+    margin-top: 10px;
+    border-top: 1px solid var(--gray);
+}
+

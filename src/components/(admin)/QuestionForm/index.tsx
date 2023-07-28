@@ -73,7 +73,16 @@ const QuestionForm = ({ mode, question }: Props) => {
           onFieldChange={(value) => handleChange("content", value)}
         />
       </form>
-      <ReactMarkdown className="markdown">{form.content}</ReactMarkdown>
+      <div
+        style={{
+          backgroundColor: "var(--primary-bg)",
+          color: "white",
+          fontFamily: "var(--primary-font)",
+          padding: "10px",
+        }}
+      >
+        <ReactMarkdown className="markdown">{form.content}</ReactMarkdown>
+      </div>
     </>
   );
 };

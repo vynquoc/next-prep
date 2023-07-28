@@ -125,7 +125,9 @@ model UserCode {
 }
 
 model TriviaQuestion {
-  id      String @id @default(uuid())
-  title   String
-  content String @db.Text
+  id        String   @id @default(uuid())
+  title     String
+  content   String   @db.Text
+  createdAt DateTime @default(now())
+  category  String?
 }

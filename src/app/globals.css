@@ -85,9 +85,19 @@ main {
 }
 
 .markdown code {
-  background-color: var(--primary-color);
   padding: 0 3px;
   border-radius: 2px;
+}
+
+.markdown pre {
+  width: fit-content;
+  padding: 0.8rem;
+  border-radius: 4px;
+  background-color: #343941;
+}
+
+.markdown a {
+  color: var(--primary-color);
 }
 
 ::-webkit-scrollbar {
