@@ -3,6 +3,11 @@
     background-color: rgba(66, 66, 66, 0.4);
     padding: 0.4rem 0.8rem;
     border-radius: 4px;
+    border: 1px solid transparent;
+}
+
+.questionItem.itemOpen {
+    border-color:  var(--gray);
 }
 
 .questionItem:not(:last-child) {
@@ -11,7 +16,18 @@
 
 .itemHeader {
     cursor: pointer;
+    display: flex;
+    align-items: center;
 }
+.itemHeader > h4 {
+    margin-left: 8px;
+}
+
+.itemHeader:hover .itemIcon {
+    transform: rotate(360deg);
+    transition: transform ease-in-out 0.4s;
+}
+
 
 .itemContent {
     height: 0;
@@ -20,7 +36,7 @@
    
 }
 
-.itemContent.open {
+.itemContent.contentOpen {
     margin-top: 10px;
     border-top: 1px solid var(--gray);
 }

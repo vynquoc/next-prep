@@ -88,3 +88,22 @@ export const tagOptions = [
     value: "js",
   },
 ];
+
+export const questionCategoryOptions = [
+  {
+    displayText: "HTML",
+    value: "html",
+  },
+  {
+    displayText: "CSS",
+    value: "css",
+  },
+  {
+    displayText: "Javascript",
+    value: "javascript",
+  },
+  {
+    displayText: "React",
+    value: "react",
+  },
+];

@@ -3,9 +3,13 @@ import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import Accordion from "../Accordion";
 import icInfor from "@/public/ic_infor.svg";
-import remarkGfm from "remark-gfm";
+import { ChallengeInterface } from "@/types/types";
 
-const ChallengePrompt = ({ challenge }: any) => {
+type Props = {
+  challenge: ChallengeInterface;
+};
+
+const ChallengePrompt = ({ challenge }: Props) => {
   return (
     <div className={styles.promptContainer}>
       <div className={styles.category}>
@@ -17,14 +21,16 @@ const ChallengePrompt = ({ challenge }: any) => {
         <div className={styles.iconWrapper}>
           <Image src={icInfor} alt="infor" className={styles.icon} />
         </div>
-        <p>
-          This challenge has pre-written CSS code, you can access but do not
-          modify it.
-        </p>
+        {challenge.languageToWrite !== "css" && (
+          <p>
+            This challenge has pre-written CSS code, you can access but do not
+            modify it.
+          </p>
+        )}
       </div>
       <ReactMarkdown className="markdown">{challenge?.prompt}</ReactMarkdown>
       <h3 style={{ margin: "10px 0" }}>Hints</h3>
-      {challenge?.hints.map((hint: string, index: number) => (
+      {challenge?.hints?.map((hint: string, index: number) => (
         <Accordion key={index + hint} title={`Hint ${index + 1}`}>
           <p>{hint}</p>
         </Accordion>

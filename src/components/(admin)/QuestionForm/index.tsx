@@ -2,12 +2,18 @@
 import { FormEvent, useState, useTransition } from "react";
 import styles from "./styles.module.css";
 import { TriviaQuestionInterface } from "@/types/types";
-import { addTriviaQuestion, updateTriviaQuestion } from "@/actions";
+import {
+  addTriviaQuestion,
+  deleteTriviaQuestion,
+  updateTriviaQuestion,
+} from "@/actions";
 
 import LoadingIndicator from "@/components/LoadingIndicator";
 import FormField from "@/components/FormField";
 import { useRouter } from "next/navigation";
 import ReactMarkdown from "react-markdown";
+import FormDropdown from "@/components/FormDropdown";
+import { questionCategoryOptions } from "@/constant";
 
 type Props = {
   mode: "create" | "update";
@@ -20,6 +26,7 @@ const QuestionForm = ({ mode, question }: Props) => {
   const [form, setForm] = useState({
     title: question?.title || "",
     content: question?.content || "",
+    category: question?.category || "",
   });
 
   const handleChange = (name: string, value: string) => {
@@ -30,13 +37,23 @@ const QuestionForm = ({ mode, question }: Props) => {
     setForm({
       title: question?.title || "",
       content: question?.content || "",
+      category: question?.category || "",
     });
+  };
+
+  const handleDelete = () => {
+    if (question) {
+      startTransition(() => deleteTriviaQuestion(question?.id));
+      router.push("/admin/manage-trivia-questions");
+    }
   };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (mode === "create") {
-      startTransition(() => addTriviaQuestion(form.title, form.content));
+      startTransition(() =>
+        addTriviaQuestion(form.title, form.content, form.category)
+      );
     } else {
       if (question) {
         startTransition(() => updateTriviaQuestion(question?.id, form));
@@ -57,6 +74,9 @@ const QuestionForm = ({ mode, question }: Props) => {
             <button type="button" className="button" onClick={handleReset}>
               Reset
             </button>
+            <button type="button" className="button" onClick={handleDelete}>
+              Delete
+            </button>
             <button className="button">Save</button>
           </div>
         </div>
@@ -64,6 +84,12 @@ const QuestionForm = ({ mode, question }: Props) => {
           title="Title"
           state={form.title}
           onFieldChange={(value) => handleChange("title", value)}
+        />
+        <FormDropdown
+          label="Category"
+          options={questionCategoryOptions}
+          state={form.category}
+          onFieldChange={(value) => handleChange("category", value)}
         />
         <FormField
           title="Content"

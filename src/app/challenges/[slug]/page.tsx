@@ -6,7 +6,7 @@ import ChallengeDescription from "@/components/ChallengeDescription";
 import { ChallengeInterface, UserCodeInterface } from "@/types/types";
 import { getUserCode } from "@/prisma/userCode";
 import { getCurrentUser } from "@/lib/session";
-import { Suspense } from "react";
+import { getCodingSubmission } from "@/actions";
 
 const ChallengePage = async ({
   params: { slug },
@@ -14,14 +14,20 @@ const ChallengePage = async ({
   params: { slug: string };
 }) => {
   const user = await getCurrentUser();
-  const challenge = (await getChallengeBySlug(slug)) as ChallengeInterface;
+  const challenge = (await getChallengeBySlug(slug)) as ChallengeInterface & {
+    completed: boolean;
+  };
+  let combinedChallenge = challenge;
   let userCode;
-
   if (user) {
+    const submission = await getCodingSubmission(challenge.id);
     userCode = (await getUserCode(
       challenge?.slug as string,
       user.id
     )) as UserCodeInterface;
+    if (submission) {
+      combinedChallenge = { ...challenge, completed: true };
+    }
   }
 
   return (
@@ -32,7 +38,7 @@ const ChallengePage = async ({
       }}
     >
       <CustomSplit sizes={[40, 60]} minSize={100} className="split">
-        <ChallengeDescription challenge={challenge} />
+        <ChallengeDescription challenge={combinedChallenge} />
         <CodeWorkspace
           user={user}
           key={challenge?.id}

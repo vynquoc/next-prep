@@ -1,0 +1,17 @@
+.header {
+    display: flex;
+    background-color: var(--primary-color);
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+
+.checkbox {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-right: 10px;
+    background-color: var(--primary-color-dark);
+}

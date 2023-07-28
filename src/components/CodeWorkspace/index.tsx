@@ -20,7 +20,18 @@ const tabs = ["JAVASCRIPT", "CSS", "HTML"];
 const delay = 300;
 
 const CodeWorkspace = ({ isReact, challenge, userCode, user }: Props) => {
-  const [currentTab, setCurrentTab] = useState(tabs[0]);
+  let tab = tabs[0];
+  switch (challenge?.languageToWrite) {
+    case "css":
+      tab = tabs[1];
+      break;
+    case "html":
+      tab = tabs[2];
+    default:
+      tab = tabs[0];
+      break;
+  }
+  const [currentTab, setCurrentTab] = useState(tab);
   const [isLoading, setIsLoading] = useState(true);
   const [html, setHtml] = useState(
     (challenge?.languageToWrite === "html" && userCode?.code) ||

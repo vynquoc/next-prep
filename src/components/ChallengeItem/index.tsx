@@ -6,11 +6,15 @@ import icHTML from "@/public/ic_html.svg";
 import icJs from "@/public/ic_js.svg";
 import icCss from "@/public/ic_css.svg";
 import icRight from "@/public/ic_right_gray.svg";
+import icCheck from "@/public/ic_check_green.svg";
 import Icon from "../Icon";
 import { ChallengeInterface } from "@/types/types";
+import Tooltip from "../Tooltip";
 
 type Props = {
-  challenge: ChallengeInterface;
+  challenge: ChallengeInterface & {
+    completed?: boolean;
+  };
 };
 
 const icons = {
@@ -26,6 +30,21 @@ const ChallengeItem = ({ challenge }: Props) => {
       className={styles.challengeItem}
       href={`/challenges/${challenge.slug}`}
     >
+      {challenge?.completed ? (
+        <Tooltip text="Completed">
+          <Icon
+            src={icCheck}
+            width={40}
+            height={40}
+            style={{ marginRight: 5 }}
+          />
+        </Tooltip>
+      ) : (
+        <Tooltip text="Not completed">
+          <div className={styles.mark}></div>
+        </Tooltip>
+      )}
+
       <div>
         <h4>{challenge.name}</h4>
         <p className={styles.challengePrompt}>{challenge.shortDescription}</p>

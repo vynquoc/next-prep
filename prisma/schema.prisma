@@ -44,17 +44,18 @@ model Session {
 }
 
 model User {
-  id             String           @id @default(cuid())
-  name           String?
-  email          String?          @unique
-  emailVerified  DateTime?
-  password       String?
-  role           Role             @default(user)
-  image          String?
-  accounts       Account[]
-  sessions       Session[]
-  QuizSubmission QuizSubmission[]
-  UserCode       UserCode[]
+  id               String             @id @default(cuid())
+  name             String?
+  email            String?            @unique
+  emailVerified    DateTime?
+  password         String?
+  role             Role               @default(user)
+  image            String?
+  accounts         Account[]
+  sessions         Session[]
+  QuizSubmission   QuizSubmission[]
+  UserCode         UserCode[]
+  CodingSubmission CodingSubmission[]
 }
 
 model VerificationToken {
@@ -95,15 +96,17 @@ model QuizSubmission {
   createdAt   DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id])
+
+  @@index([userId])
 }
 
 model Challenge {
-  id               String   @id @default(uuid())
+  id               String             @id @default(uuid())
   category         String?
   type             String?
   name             String
-  slug             String?  @unique
-  prompt           String?  @db.Text
+  slug             String?            @unique
+  prompt           String?            @db.Text
   hints            Json?
   languageToWrite  String?
   promptCode       Json?
@@ -112,7 +115,8 @@ model Challenge {
   difficulty       String?
   tags             Json?
   shortDescription String?
-  createdAt        DateTime @default(now())
+  createdAt        DateTime           @default(now())
+  CodingSubmission CodingSubmission[]
 }
 
 model UserCode {
@@ -122,6 +126,8 @@ model UserCode {
   code      String @db.Text
 
   user User @relation(fields: [userId], references: [id])
+
+  @@index([userId])
 }
 
 model TriviaQuestion {
@@ -130,4 +136,16 @@ model TriviaQuestion {
   content   String   @db.Text
   createdAt DateTime @default(now())
   category  String?
+}
+
+model CodingSubmission {
+  id          String @id @default(uuid())
+  userId      String
+  challengeId String
+
+  challenge Challenge @relation(fields: [challengeId], references: [id])
+  user      User      @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([challengeId])
 }

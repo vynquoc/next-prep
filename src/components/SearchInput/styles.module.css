@@ -1,0 +1,24 @@
+.searchWrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid var(--gray);
+    border-radius: 4px;
+    padding: 6px 8px;
+}
+
+.searchWrapper input {
+    background-color: transparent;
+    border: none;
+    width: 100%;
+    color: var(--gray);
+    outline: none;
+}
+
+.searchWrapper input:focus .searchWrapper {
+    border-color: red;
+}
+
+.focused {
+    border-color: var(--primary-color);
+}

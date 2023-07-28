@@ -29,7 +29,7 @@ export interface UserInterface {
 export interface ChallengeInterface {
   id: string;
   name: string;
-  prompt?: string;
+  prompt: string;
   category: string;
   type: string;
   slug?: string;
@@ -61,4 +61,5 @@ export interface TriviaQuestionInterface {
   id: string;
   content: string;
   title: string;
+  category: string;
 }

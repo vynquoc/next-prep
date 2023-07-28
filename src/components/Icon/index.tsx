@@ -5,10 +5,12 @@ type Props = {
   width?: number;
   height?: number;
   style?: CSSProperties;
+  className?: string;
 };
-const Icon = ({ src, width, height, style }: Props) => {
+const Icon = ({ src, width, height, style, className }: Props) => {
   return (
     <Image
+      className={className}
       src={src}
       alt="icon"
       style={{ width: width, height: height, ...style }}

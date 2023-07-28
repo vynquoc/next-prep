@@ -4,7 +4,7 @@
     display: flex;
     align-items: center;
     border-bottom: 1px solid var(--gray);
-    padding: 0.6rem 2rem;
+    padding: 0.6rem 2rem 0.6rem 0.3rem;
     cursor: pointer;
 }
 
@@ -19,6 +19,14 @@
     color: rgba(255, 255, 255, 0.805);
 }
 
+.mark {
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--gray);
+    border-radius: 50%;
+    margin: 0 10px 0 5px;
+  
+}
 
 
 .iconContainer {
