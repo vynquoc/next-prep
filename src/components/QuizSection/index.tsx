@@ -33,7 +33,7 @@ const QuizSection = ({ quizList, userSubmission }: Props) => {
 
   const handleQuizSubmission = async () => {
     try {
-      const response = await fetch("/api/quiz-submission", {
+      await fetch("/api/quiz-submission", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

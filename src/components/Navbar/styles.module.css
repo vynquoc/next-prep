@@ -26,7 +26,26 @@
 
 .link {
     color: var(--gray-dark);
+    position: relative;
+    font-weight: 500;
+}
 
+
+
+.link::after {
+    content: '';
+    position: absolute;
+    width: 0px;
+    height: 2px;
+    left: 50%;
+    bottom: -5px;
+    background-color: var(--primary-color);
+    transition: all ease-in-out .2s;
+}
+
+.link:hover::after {
+    width: 100%;
+    left: 0;
 }
 
 .link:not(:first-child) {

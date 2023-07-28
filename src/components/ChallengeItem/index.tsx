@@ -29,9 +29,11 @@ const ChallengeItem = ({ challenge }: Props) => {
           <p className={styles.challengePrompt}>{challenge.shortDescription}</p>
           <div className={styles.iconContainer}>
             <div style={{ display: "flex", alignItems: "center" }}>
-              <Icon src={icFlame} width={20} height={20} />
+              <Icon src={icFlame} width={18} height={18} />
               <span className={styles.challengeDifficult}>
-                {challenge.difficulty}
+                {`${challenge.difficulty
+                  ?.charAt(0)
+                  .toUpperCase()}${challenge.difficulty?.slice(1)}`}
               </span>
             </div>
             <div className={styles.tagContainer}>
@@ -39,8 +41,8 @@ const ChallengeItem = ({ challenge }: Props) => {
                 <Icon
                   key={tag}
                   src={icons[tag as keyof typeof icons]}
-                  width={25}
-                  height={25}
+                  width={18}
+                  height={18}
                 />
               ))}
             </div>

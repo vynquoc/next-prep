@@ -9,6 +9,7 @@ type Props = {
   isTextArea?: boolean;
   width?: string;
   checked?: boolean;
+  style?: React.CSSProperties;
   onFieldChange: (value: string) => void;
 };
 
@@ -20,10 +21,11 @@ const FormField = ({
   isTextArea,
   width,
   checked,
+  style,
   onFieldChange,
 }: Props) => {
   return (
-    <div className={styles.fieldWrapper} style={{ width: width }}>
+    <div className={styles.fieldWrapper} style={{ width: width, ...style }}>
       {type !== "radio" && <label className={styles.fieldLabel}>{title}</label>}
       {isTextArea ? (
         <textarea

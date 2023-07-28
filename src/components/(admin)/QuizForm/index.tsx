@@ -114,7 +114,7 @@ const QuizForm = ({ quiz, mode }: Props) => {
           {isLoading && (
             <LoadingIndicator color="var(--primary-color)" width={25} />
           )}
-          <button className="button" onClick={handleReset}>
+          <button type="button" className="button" onClick={handleReset}>
             Reset
           </button>
           <button className="button">Save</button>
