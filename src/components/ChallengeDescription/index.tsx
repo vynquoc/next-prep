@@ -29,17 +29,17 @@ const ChallengeDescription = ({ challenge }: Props) => {
     challenge.completed,
     (state, updatedMark: boolean) => updatedMark
   );
-  const user = useSession();
+  const session = useSession();
 
   const handleMark = async () => {
-    if (user) {
+    if (session.data) {
       setOptimisticMark(!optimisticMark);
       await addCodingSubmission(challenge.id);
     }
   };
 
   const handleUnmark = async () => {
-    if (user) {
+    if (session.data) {
       setOptimisticMark(!optimisticMark);
       await deleteCodingSubmission(challenge.id);
     }
@@ -54,22 +54,28 @@ const ChallengeDescription = ({ challenge }: Props) => {
           onTabChange={(tab: string) => setCurrentTab(tab)}
         />
 
-        {!optimisticMark ? (
-          <Tooltip text="Mark as completed">
-            <div className={styles.checkbox} onClick={handleMark}></div>
-          </Tooltip>
-        ) : (
-          <Tooltip text="Completed">
-            <div onClick={handleUnmark} style={{ cursor: "pointer" }}>
-              <Icon
-                src={icCheck}
-                width={37}
-                height={37}
-                style={{ marginRight: 5 }}
-              />
-            </div>
-          </Tooltip>
-        )}
+        <>
+          {session.data && (
+            <>
+              {!optimisticMark ? (
+                <Tooltip text="Mark as completed">
+                  <div className={styles.checkbox} onClick={handleMark}></div>
+                </Tooltip>
+              ) : (
+                <Tooltip text="Completed">
+                  <div onClick={handleUnmark} style={{ cursor: "pointer" }}>
+                    <Icon
+                      src={icCheck}
+                      width={37}
+                      height={37}
+                      style={{ marginRight: 5 }}
+                    />
+                  </div>
+                </Tooltip>
+              )}
+            </>
+          )}
+        </>
       </div>
       <CustomSplit
         direction="vertical"
