@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-   border: 1px solid #ddd;
+   border: 1px solid var(--gray);
    border-radius: 50%;
    width: 35px;
    height: 35px;
@@ -16,7 +16,8 @@
     position: absolute;
     top: 100%;
     right: 0;
-    background-color: white;
+    border: 1px solid var(--gray);
+    background-color: var(--primary-bg);
     padding: 20px;
     margin-top: 15px;
     border-radius: 4px;
@@ -24,12 +25,10 @@
     z-index: 9999;
 }
 
+
+
 .dropdown::before {
     content: "";
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-bottom: 10px solid white; /* Change the color as needed */
-    top: -10px;
     right: 5px;
     position: absolute;
 }

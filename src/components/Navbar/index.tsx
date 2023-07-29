@@ -1,7 +1,6 @@
 import Link from "next/link";
 import styles from "./styles.module.css";
 import { NavLinks } from "@/constant";
-import ThemeButton from "../ThemeButton";
 
 import User from "../User";
 
@@ -20,7 +19,6 @@ const Navbar = async () => {
           </Link>
         ))}
       </ul>
-      <ThemeButton />
       <User />
     </nav>
   );

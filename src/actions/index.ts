@@ -2,6 +2,7 @@
 
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/session";
+import { revalidatePath } from "next/cache";
 
 export const addTriviaQuestion = async (
   title: string,
@@ -60,6 +61,7 @@ export const addCodingSubmission = async (challengeId: string) => {
         challengeId: challengeId,
       },
     });
+    revalidatePath("/challenges");
     return submission;
   }
 };
@@ -80,7 +82,7 @@ export const deleteCodingSubmission = async (challengeId: string) => {
       },
     });
 
-    console.log(deletedSubmission);
+    revalidatePath("/challenges");
     if (deletedSubmission) return true;
     return false;
   }

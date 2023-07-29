@@ -1,10 +1,10 @@
 .container {
     padding: 60px;
     text-align: center;
-    color: var(--gray-dark);
+    color: var(--gray);
     font-family: var(--primary-font);
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-
+    border-radius: 10px;
+    background-color: white;
 }
 
 .container h4 {
@@ -29,6 +29,7 @@
     border: none;
     background-color: var(--primary-color);
     color: white;
+    font-weight: 600;
     font-size: 1rem;
     padding: 10px 15px;
     border-radius: 4px;

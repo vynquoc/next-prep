@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Icon from "../Icon";
 import styles from "./styles.module.css";
-import icUser from "@/public/ic_user.svg";
+import icUser from "@/public/ic_user_white.svg";
 
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";

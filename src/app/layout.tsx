@@ -1,7 +1,6 @@
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { Providers } from "./providers";
-import { getCurrentUser } from "@/lib/session";
 import AdminNavbar from "@/components/(admin)/Navbar";
 
 export const metadata = {
@@ -14,7 +13,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const user = await getCurrentUser();
   return (
     <html lang="en">
       <body>

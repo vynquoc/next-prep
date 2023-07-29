@@ -1,18 +1,21 @@
 .wrapper {
     display: flex;
-    padding: 0.5rem 1.2rem;
+    padding: 1rem 1.2rem;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid #ddd;
     font-family: var(--primary-font);
+    background-color: var(--primary-bg);
+    border-bottom: 1px solid var(--gray);
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
 }
 
 .logoText {
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: 700;
     font-family: var(--heading-font);
-    color: var(--gray);
-
+    color: white;
 }
 .logoTextMain {
     color: var(--primary-color);
@@ -25,7 +28,7 @@
 }
 
 .link {
-    color: var(--gray-dark);
+    color: white;
     position: relative;
     font-weight: 500;
 }
