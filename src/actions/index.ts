@@ -54,12 +54,35 @@ export const deleteTriviaQuestion = async (id: string) => {
 export const addCodingSubmission = async (challengeId: string) => {
   const user = await getCurrentUser();
   if (user) {
-    await db.codingSubmission.create({
+    const submission = await db.codingSubmission.create({
       data: {
         userId: user?.id,
         challengeId: challengeId,
       },
     });
+    return submission;
+  }
+};
+
+export const deleteCodingSubmission = async (challengeId: string) => {
+  const user = await getCurrentUser();
+  if (user) {
+    const submission = await db.codingSubmission.findFirst({
+      where: {
+        challengeId: challengeId,
+        userId: user.id,
+      },
+    });
+
+    const deletedSubmission = await db.codingSubmission.delete({
+      where: {
+        id: submission?.id,
+      },
+    });
+
+    console.log(deletedSubmission);
+    if (deletedSubmission) return true;
+    return false;
   }
 };
 

@@ -1,0 +1,42 @@
+.filterWrapper {
+    width: 100%;
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+
+.tagsWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.tagItem {
+    color: var(--gray);
+    border: 1px solid var(--gray);
+    display: flex;
+    gap: 5px;
+    font-size: 0.8rem;
+    padding: 6px 8px;
+    border-radius: 20px;
+    align-items: center;
+    background-color: rgba(66, 66, 66, 0.4);
+}
+
+.tagItem.tagActive {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.tagItem:hover {
+    color: var(--primary-color);
+}
+
+.numOfItems {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    color: var(--gray);
+    font-size: 0.8rem;
+    gap: 5px;
+}

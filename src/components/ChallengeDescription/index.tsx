@@ -1,6 +1,11 @@
 "use client";
-import { useState } from "react";
 import styles from "./styles.module.css";
+import { useState } from "react";
+import { useSession } from "next-auth/react";
+import { experimental_useOptimistic as useOptimistic } from "react";
+import { ChallengeInterface } from "@/types/types";
+import { addCodingSubmission, deleteCodingSubmission } from "@/actions";
+
 import CustomSplit from "../Split";
 import ChallengePrompt from "../ChallengePrompt";
 import ChallengeDemo from "../ChallengeDemo";
@@ -8,9 +13,8 @@ import ChallengeSolution from "../ChallengeSolution";
 import TabBar from "../TabBar";
 import Tooltip from "../Tooltip";
 import Icon from "../Icon";
+
 import icCheck from "@/public/ic_check_green.svg";
-import { ChallengeInterface } from "@/types/types";
-import { addCodingSubmission } from "@/actions";
 
 const tabs = ["Prompt", "Solution"];
 
@@ -21,9 +25,24 @@ type Props = {
 };
 const ChallengeDescription = ({ challenge }: Props) => {
   const [currentTab, setCurrentTab] = useState(tabs[0]);
+  const [optimisticMark, setOptimisticMark] = useOptimistic(
+    challenge.completed,
+    (state, updatedMark: boolean) => updatedMark
+  );
+  const user = useSession();
 
   const handleMark = async () => {
-    await addCodingSubmission(challenge.id);
+    if (user) {
+      setOptimisticMark(!optimisticMark);
+      await addCodingSubmission(challenge.id);
+    }
+  };
+
+  const handleUnmark = async () => {
+    if (user) {
+      setOptimisticMark(!optimisticMark);
+      await deleteCodingSubmission(challenge.id);
+    }
   };
 
   return (
@@ -35,18 +54,20 @@ const ChallengeDescription = ({ challenge }: Props) => {
           onTabChange={(tab: string) => setCurrentTab(tab)}
         />
 
-        {!challenge.completed ? (
+        {!optimisticMark ? (
           <Tooltip text="Mark as completed">
             <div className={styles.checkbox} onClick={handleMark}></div>
           </Tooltip>
         ) : (
           <Tooltip text="Completed">
-            <Icon
-              src={icCheck}
-              width={37}
-              height={37}
-              style={{ marginRight: 5 }}
-            />
+            <div onClick={handleUnmark} style={{ cursor: "pointer" }}>
+              <Icon
+                src={icCheck}
+                width={37}
+                height={37}
+                style={{ marginRight: 5 }}
+              />
+            </div>
           </Tooltip>
         )}
       </div>

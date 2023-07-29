@@ -1,32 +1,33 @@
 "use client";
 import styles from "./styles.module.css";
+import { useEffect, useState } from "react";
+import { TriviaQuestionInterface } from "@/types/types";
+
 import icReact from "@/public/ic_react.svg";
 import icHTML from "@/public/ic_html.svg";
 import icJs from "@/public/ic_js.svg";
 import icCss from "@/public/ic_css.svg";
 import icSad from "@/public/ic_sad.svg";
 
-import { TriviaQuestionInterface } from "@/types/types";
 import TriviaQuestionItem from "../TriviaQuestionItem";
 import Icon from "../Icon";
-import SearchInput from "../SearchInput";
-import { useEffect, useState } from "react";
+import Filter from "../Filter";
 
 type Props = {
   questionList: TriviaQuestionInterface[];
 };
 
 const tags = [
-  { displayText: "HTML", value: "html", icon: icHTML },
-  { displayText: "CSS", value: "css", icon: icCss },
-  { displayText: "Javascript", value: "javascript", icon: icJs },
-  { displayText: "React", value: "react", icon: icReact },
+  { text: "HTML", value: "html", icon: icHTML },
+  { text: "CSS", value: "css", icon: icCss },
+  { text: "Javascript", value: "javascript", icon: icJs },
+  { text: "React", value: "react", icon: icReact },
 ];
 
 const TriviaQuestionList = ({ questionList }: Props) => {
-  const [list, setList] = useState(questionList);
+  const [list, setList] = useState<TriviaQuestionInterface[]>(questionList);
   const [filteredTags, setFilteredTags] = useState<string[]>([]);
-  const [searchInput, setSearchInput] = useState("");
+  const [searchInput, setSearchInput] = useState<string>("");
 
   useEffect(() => {
     let filteredList = [...questionList];
@@ -48,11 +49,13 @@ const TriviaQuestionList = ({ questionList }: Props) => {
 
   const handleTagClick = (value: string) => {
     let newValues = [...filteredTags];
+
     if (filteredTags.includes(value)) {
-      newValues = newValues.filter((val) => val !== value);
+      newValues = filteredTags.filter((val) => val !== value);
     } else {
-      newValues = [...newValues, value];
+      newValues = [...filteredTags, value];
     }
+
     setFilteredTags(newValues);
   };
 
@@ -62,25 +65,14 @@ const TriviaQuestionList = ({ questionList }: Props) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.filterWrapper}>
-        <ul className={styles.tagsWrapper}>
-          {tags.map((tag) => (
-            <li
-              key={tag.value}
-              onClick={() => handleTagClick(tag.value)}
-              className={
-                filteredTags.includes(tag.value)
-                  ? `${styles.tagItem} ${styles.tagActive}`
-                  : styles.tagItem
-              }
-            >
-              <Icon src={tag.icon} width={18} height={18} />
-              <p>{tag.displayText}</p>
-            </li>
-          ))}
-        </ul>
-        <SearchInput onChange={handleInputChange} value={searchInput} />
-      </div>
+      <Filter
+        tagsOption={tags}
+        activeTags={filteredTags}
+        searchValue={searchInput}
+        numOfItems={list.length}
+        onTagClick={(value: string) => handleTagClick(value)}
+        onInputChange={(value: string) => handleInputChange(value)}
+      />
 
       <section className={styles.listContainer}>
         {list.length > 0 ? (

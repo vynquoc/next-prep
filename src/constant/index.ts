@@ -13,26 +13,26 @@ export const AdminTabs = [
 export const categoryOptions = [
   {
     displayText: "React Components",
-    value: "react-components",
+    value: "React Components",
   },
   {
-    displayText: "Javascript Fundamentals",
-    value: "javascript-fundamentals",
+    displayText: "Javascript Utilities",
+    value: "Javascript Utilities",
   },
   {
     displayText: "HTML/CSS",
-    value: "html-css",
+    value: "HTML/CSS",
   },
 ];
 
 export const typeOptions = [
   {
-    displayText: "Coding Frontend",
-    value: "coding-frontend",
+    displayText: "User Interface",
+    value: "User Interface",
   },
   {
-    displayText: "Javascript Fundamentals",
-    value: "javascript-fundamentals",
+    displayText: "Javascript Utilities",
+    value: "Javascript Utilities",
   },
 ];
 

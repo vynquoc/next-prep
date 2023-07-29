@@ -1,4 +1,25 @@
+.container {
+    width: 60%;
+    margin: 0 auto;
+}
+
 .challengeList {
     border-radius: 10px;
     border: 1px solid var(--gray);
+}
+
+.noQuestions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.noQuestions p:first-of-type {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.noQuestions p:last-of-type {
+    color: var(--gray)
 }
