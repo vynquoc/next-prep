@@ -20,16 +20,24 @@ const Navbar = async () => {
             ADMIN
           </Link>
         )}
-        {user?.role === "user" ||
-          (!user && (
-            <>
-              {NavLinks.map((link) => (
-                <Link href={link.href} key={link.text} className={styles.link}>
-                  {link.text}
-                </Link>
-              ))}
-            </>
-          ))}
+        {user?.role === "user" && (
+          <>
+            {NavLinks.map((link) => (
+              <Link href={link.href} key={link.text} className={styles.link}>
+                {link.text}
+              </Link>
+            ))}
+          </>
+        )}
+        {!user && (
+          <>
+            {NavLinks.map((link) => (
+              <Link href={link.href} key={link.text} className={styles.link}>
+                {link.text}
+              </Link>
+            ))}
+          </>
+        )}
       </ul>
       <User />
     </nav>
