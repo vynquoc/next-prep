@@ -1,4 +1,4 @@
-import ChallengeForm from "@/components/(admin)/ChallengeForm";
+import ChallengeForm from "@/components/admin/ChallengeForm";
 
 const CreateChallenge = () => {
   return <ChallengeForm mode="create" />;

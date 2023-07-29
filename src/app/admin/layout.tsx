@@ -1,4 +1,4 @@
-import SideBarAdmin from "@/components/(admin)/SideBar";
+import SideBarAdmin from "@/components/admin/SideBar";
 import styles from "./layout.module.css";
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   return (

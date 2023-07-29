@@ -1,7 +1,6 @@
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { Providers } from "./providers";
-import AdminNavbar from "@/components/(admin)/Navbar";
 
 export const metadata = {
   title: "Next Prep",

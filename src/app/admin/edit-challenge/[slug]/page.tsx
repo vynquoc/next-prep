@@ -1,4 +1,4 @@
-import ChallengeForm from "@/components/(admin)/ChallengeForm";
+import ChallengeForm from "@/components/admin/ChallengeForm";
 import { getChallengeBySlug } from "@/prisma/challenge";
 import { ChallengeInterface } from "@/types/types";
 

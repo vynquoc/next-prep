@@ -1,5 +1,4 @@
 import { getChallengeBySlug, updateChallenge } from "@/prisma/challenge";
-import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: Request) {

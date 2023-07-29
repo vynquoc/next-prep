@@ -1,4 +1,4 @@
-import QuestionForm from "@/components/(admin)/QuestionForm";
+import QuestionForm from "@/components/admin/QuestionForm";
 
 const CreateQuestion = () => {
   return (

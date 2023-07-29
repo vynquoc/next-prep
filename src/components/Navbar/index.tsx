@@ -3,8 +3,10 @@ import styles from "./styles.module.css";
 import { NavLinks } from "@/constant";
 
 import User from "../User";
+import { getCurrentUser } from "@/lib/session";
 
 const Navbar = async () => {
+  const user = await getCurrentUser();
   return (
     <nav className={styles.wrapper}>
       <Link href="/">
@@ -13,11 +15,21 @@ const Navbar = async () => {
         </span>
       </Link>
       <ul className={styles.linksWrapper}>
-        {NavLinks.map((link) => (
-          <Link href={link.href} key={link.text} className={styles.link}>
-            {link.text}
+        {user?.role === "admin" && (
+          <Link href="/admin" className={styles.link}>
+            ADMIN
           </Link>
-        ))}
+        )}
+        {user?.role === "user" ||
+          (!user && (
+            <>
+              {NavLinks.map((link) => (
+                <Link href={link.href} key={link.text} className={styles.link}>
+                  {link.text}
+                </Link>
+              ))}
+            </>
+          ))}
       </ul>
       <User />
     </nav>

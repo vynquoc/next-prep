@@ -1,5 +1,5 @@
 import { getTriviaQuestion } from "@/actions";
-import QuestionForm from "@/components/(admin)/QuestionForm";
+import QuestionForm from "@/components/admin/QuestionForm";
 import { TriviaQuestionInterface } from "@/types/types";
 
 const EditQuestion = async ({ params: { id } }: { params: { id: string } }) => {

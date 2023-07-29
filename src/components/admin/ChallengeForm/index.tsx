@@ -1,15 +1,19 @@
 "use client";
 import styles from "./styles.module.css";
 import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
+import { ChallengeInterface } from "@/types/types";
+import { slugify } from "@/utils";
+import icTrash from "@/public/ic_trash_primary.svg";
+
 import FormField from "@/components/FormField";
 import FormGroup from "@/components/FormGroup";
-import { ChallengeInterface } from "@/types/types";
 import Editor from "@/components/Editor";
-import { slugify } from "@/utils";
 import LivePreview from "@/components/LivePreview";
 import FormDropdown from "@/components/FormDropdown";
-import icTrash from "@/public/ic_trash_primary.svg";
 import Icon from "@/components/Icon";
+import LoadingIndicator from "@/components/LoadingIndicator";
+
 import {
   categoryOptions,
   typeOptions,
@@ -17,8 +21,6 @@ import {
   tagOptions,
   languageOptions,
 } from "@/constant";
-import LoadingIndicator from "@/components/LoadingIndicator";
-import { useRouter } from "next/navigation";
 
 type Props = {
   challenge?: ChallengeInterface;
@@ -303,9 +305,18 @@ const ChallengeForm = ({ challenge, mode }: Props) => {
       <LivePreview
         backgroundColor="#1E1E1E"
         style={{ marginTop: 10 }}
-        html={form.promptCode.html}
-        css={form.promptCode.css}
-        js={form.promptCode.js}
+        html={
+          form.languageToWrite === "html" ? form.solution : form.promptCode.html
+        }
+        css={
+          form.languageToWrite === "css" ? form.solution : form.promptCode.css
+        }
+        js={
+          form.languageToWrite === "jsx" ||
+          form.languageToWrite === "javascript"
+            ? form.solution
+            : form.promptCode.js
+        }
         componentName={form.reactConfig.componentName}
         isReact={form.languageToWrite === "jsx"}
       />

@@ -26,7 +26,7 @@ const FormDropdown = ({
         value={state}
         onChange={(e) => onFieldChange(e.target.value)}
       >
-        {options.map((option) => (
+        {[{ displayText: "", value: "" }, ...options].map((option) => (
           <option key={option.value} value={option.value}>
             {option.displayText}
           </option>

@@ -8,11 +8,15 @@ const CodingQuestionsManager = async () => {
       <Link className="button" href="/admin/create-challenge">
         Create Challenge
       </Link>
-      {challenges.map((challenge) => (
-        <Link href={`/admin/edit-challenge/${challenge.slug}`}>
-          {challenge.name}
-        </Link>
-      ))}
+      <section>
+        {challenges.map((challenge) => (
+          <div>
+            <Link href={`/admin/edit-challenge/${challenge.slug}`}>
+              {challenge.name}
+            </Link>
+          </div>
+        ))}
+      </section>
     </div>
   );
 };

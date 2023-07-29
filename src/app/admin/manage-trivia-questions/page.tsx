@@ -8,7 +8,7 @@ const TriviaQuestionsManager = async () => {
       <Link className="button" href="/admin/create-question">
         Create Question
       </Link>
-      <div>
+      <section>
         {questions.map((question) => (
           <div key={question.id}>
             <Link href={`/admin/edit-question/${question.id}`}>
@@ -16,7 +16,7 @@ const TriviaQuestionsManager = async () => {
             </Link>
           </div>
         ))}
-      </div>
+      </section>
     </div>
   );
 };

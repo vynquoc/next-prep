@@ -111,7 +111,7 @@ model Challenge {
   languageToWrite  String?
   promptCode       Json?
   reactConfig      Json?
-  solution         String?
+  solution         String?            @db.Text
   difficulty       String?
   tags             Json?
   shortDescription String?
