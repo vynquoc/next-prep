@@ -1,5 +1,9 @@
 import ReactDom from "react-dom";
+import { useEffect, useState } from "react";
 import styles from "./styles.module.css";
+import icClose from "@/public/ic_close.svg";
+
+import Icon from "../Icon";
 
 type Props = {
   isOpen: boolean;
@@ -9,17 +13,30 @@ type Props = {
 };
 
 const Modal = ({ isOpen, onClose, className, children }: Props) => {
-  if (!isOpen) return null;
-  return ReactDom.createPortal(
-    <>
-      <div className={styles.overlay}></div>
-      <div className={`${styles.modal} ${className}`}>
-        <button onClick={onClose}>close</button>
-        <div>{children}</div>
-      </div>
-    </>,
-    document.getElementById("modalPortal")!
-  );
+  const [domReady, setDomReady] = useState(false);
+  useEffect(() => {
+    setDomReady(true);
+  }, []);
+  return domReady
+    ? ReactDom.createPortal(
+        <>
+          {isOpen && <div className={styles.overlay}></div>}
+          <div
+            className={
+              !isOpen
+                ? `${styles.modal} ${className}`
+                : `${styles.modal} ${styles.isOpen} ${className}`
+            }
+          >
+            <button onClick={onClose} className={styles.closeBtn}>
+              <Icon src={icClose} width={30} height={30} />
+            </button>
+            <div>{children}</div>
+          </div>
+        </>,
+        document.getElementById("modalPortal")!
+      )
+    : null;
 };
 
 export default Modal;

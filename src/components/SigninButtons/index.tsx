@@ -9,16 +9,18 @@ import icGoogle from "@/public/ic_google.svg";
 
 import Icon from "../Icon";
 import LoadingIndicator from "../LoadingIndicator";
+import { useSearchParams } from "next/navigation";
 
 const SigninButtons = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const from = useSearchParams().get("from");
   const handleSignin = async (type: string) => {
     if (type === "github") {
       setIsLoading(true);
     }
     try {
       await signIn(type, {
-        callbackUrl: "/",
+        callbackUrl: from || "/",
       });
     } catch (error) {
       console.log(error);

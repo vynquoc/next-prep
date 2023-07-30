@@ -34,3 +34,11 @@
     background-color: var(--primary-color-dark);
 }
 
+.message {
+    font-weight: 600;
+}
+.link {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+

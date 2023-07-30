@@ -8,7 +8,6 @@
   visibility: hidden;
   font-family:  var(--primary-font);
   font-size: 0.8rem;
-  min-width: 130px;
   background-color: #333;
   color: #fff;
   text-align: center;

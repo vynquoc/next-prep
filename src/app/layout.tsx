@@ -18,29 +18,10 @@ export default async function RootLayout({
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body>
-        {/* {user?.role === "user" ? (
-          <Providers>
-            <Navbar />
-            <main>
-              {children}
-              <div id="modalPortal"></div>
-            </main>
-          </Providers>
-        ) : (
-          <Providers>
-            <AdminNavbar />
-            <main>
-              {children}
-              <div id="modalPortal"></div>
-            </main>
-          </Providers>
-        )} */}
         <Providers>
           <Navbar />
-          <main>
-            {children}
-            <div id="modalPortal"></div>
-          </main>
+          <main>{children}</main>
+          <div id="modalPortal"></div>
         </Providers>
       </body>
     </html>

@@ -6,15 +6,18 @@ import { ChallengeInterface, UserCodeInterface } from "@/types/types";
 import { debounce } from "@/utils";
 
 import Editor from "../Editor";
-import LivePreview from "../LivePreview";
 import CustomSplit from "../Split";
 import TabBar from "../TabBar";
 import LoadingIndicator from "../LoadingIndicator";
 import Icon from "../Icon";
 import Tooltip from "../Tooltip";
+import Modal from "../Modal";
 
 import icDone from "@/public/ic_check_white.svg";
 import icReset from "@/public/ic_reset.svg";
+import UserOutput from "../UserOutput";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 type Props = {
   isReact?: boolean;
@@ -24,7 +27,7 @@ type Props = {
 };
 
 const tabs = ["JAVASCRIPT", "CSS", "HTML"];
-const delay = 300;
+const delay = 500;
 
 const CodeWorkspace = ({ isReact, challenge, userCode, user }: Props) => {
   let tab = tabs[0];
@@ -40,6 +43,8 @@ const CodeWorkspace = ({ isReact, challenge, userCode, user }: Props) => {
   }
   const [currentTab, setCurrentTab] = useState(tab);
   const [isLoading, setIsLoading] = useState(true);
+  const [isOpenModal, setIsOpenModal] = useState(user ? false : true);
+  const pathname = usePathname();
   const [html, setHtml] = useState(
     (challenge?.languageToWrite === "html" && userCode?.code) ||
       challenge?.promptCode?.html
@@ -115,6 +120,17 @@ const CodeWorkspace = ({ isReact, challenge, userCode, user }: Props) => {
 
   return (
     <div style={{ height: "100vh" }}>
+      <Modal isOpen={isOpenModal} onClose={() => setIsOpenModal(false)}>
+        <p className={styles.message}>
+          <Link
+            className={styles.link}
+            href={`/login?from=${encodeURIComponent(pathname)}`}
+          >
+            Login
+          </Link>{" "}
+          to save your progress
+        </p>
+      </Modal>
       <div className={styles.header}>
         <TabBar
           tabs={tabs}
@@ -141,11 +157,6 @@ const CodeWorkspace = ({ isReact, challenge, userCode, user }: Props) => {
         style={{ height: "calc(100vh - 90px)" }}
       >
         <div style={{ overflow: "auto" }}>
-          {!user && (
-            <div className={styles.warningLogin}>
-              Please login to save your code
-            </div>
-          )}
           {currentTab === "JAVASCRIPT" && (
             <Editor code={js} onChange={debouncedSetJs} />
           )}
@@ -166,13 +177,12 @@ const CodeWorkspace = ({ isReact, challenge, userCode, user }: Props) => {
             />
           )}
         </div>
-        <LivePreview
+        <UserOutput
+          html={html}
           css={css}
           js={js}
-          html={html}
           isReact={isReact}
           componentName={challenge?.reactConfig?.componentName}
-          hasTabs={true}
         />
       </CustomSplit>
     </div>

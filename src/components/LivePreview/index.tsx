@@ -9,10 +9,7 @@ type Props = {
   componentName?: string;
   style?: CSSProperties;
   backgroundColor?: string;
-  hasTabs?: boolean;
 };
-
-const tabs = ["Output"];
 
 const LivePreview = ({
   html,
@@ -22,10 +19,7 @@ const LivePreview = ({
   style,
   backgroundColor,
   componentName,
-  hasTabs = false,
 }: Props) => {
-  const [currentTab, setCurrentTab] = useState(tabs[0]);
-
   const iframeReact = `
   <!DOCTYPE html>
     <html>
@@ -65,13 +59,6 @@ const LivePreview = ({
 
   return (
     <div style={{ backgroundColor: backgroundColor, ...style }}>
-      {hasTabs && (
-        <TabBar
-          tabs={tabs}
-          onTabChange={(tab) => setCurrentTab(tab)}
-          currentTab={currentTab}
-        />
-      )}
       {isReact ? (
         <iframe
           srcDoc={iframeReact}

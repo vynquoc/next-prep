@@ -144,7 +144,7 @@ const ChallengeForm = ({ challenge, mode }: Props) => {
           },
           body: JSON.stringify(updatedForm),
         });
-        if (response.status === 200) {
+        if (response.status === 201) {
           router.push("/admin/manage-coding-questions");
         }
       }

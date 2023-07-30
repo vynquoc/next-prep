@@ -18,10 +18,10 @@ type Props = {
 };
 
 const icons = {
-  html: icHTML,
-  css: icCss,
-  js: icJs,
-  react: icReact,
+  html: { icon: icHTML, width: 18, height: 18 },
+  css: { icon: icCss, width: 18, height: 18 },
+  javascript: { icon: icJs, width: 15, height: 15 },
+  react: { icon: icReact, width: 18, height: 18 },
 };
 
 const ChallengeItem = ({ challenge }: Props) => {
@@ -61,9 +61,9 @@ const ChallengeItem = ({ challenge }: Props) => {
             {challenge?.tags?.map((tag) => (
               <Icon
                 key={tag}
-                src={icons[tag as keyof typeof icons]}
-                width={18}
-                height={18}
+                src={icons[tag as keyof typeof icons].icon}
+                width={icons[tag as keyof typeof icons].width}
+                height={icons[tag as keyof typeof icons].height}
               />
             ))}
           </div>

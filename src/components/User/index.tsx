@@ -7,10 +7,12 @@ import icUser from "@/public/ic_user_white.svg";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import useClickOutside from "@/hooks/userClickOutside";
+import { usePathname } from "next/navigation";
 
 const User = () => {
   const session = useSession();
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const pathname = usePathname();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   useClickOutside(dropdownRef, () => setIsOpen(false));
@@ -36,7 +38,7 @@ const User = () => {
             <button onClick={() => signOut()}>Logout</button>
           </>
         ) : (
-          <Link href="/login">
+          <Link href={`/login?from=${encodeURIComponent(pathname)}`}>
             <button>Login</button>
           </Link>
         )}

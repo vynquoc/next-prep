@@ -1,3 +1,4 @@
+import { ChallengeInterface } from "@/types/types";
 import LivePreview from "../LivePreview";
 import TabBar from "../TabBar";
 import { useState } from "react";
@@ -5,7 +6,7 @@ import { useState } from "react";
 const tabs = ["Expected Output"];
 
 type Props = {
-  challenge?: any;
+  challenge?: ChallengeInterface;
 };
 
 const ChallengeDemo = ({ challenge }: Props) => {
@@ -19,22 +20,22 @@ const ChallengeDemo = ({ challenge }: Props) => {
       />
       <LivePreview
         html={
-          challenge.languageToWrite === "html"
-            ? challenge.solution
-            : challenge.promptCode.html
+          challenge?.languageToWrite === "html"
+            ? challenge?.solution
+            : challenge?.promptCode?.html
         }
         css={
-          challenge.languageToWrite === "css"
-            ? challenge.solution
-            : challenge.promptCode.css
+          challenge?.languageToWrite === "css"
+            ? challenge?.solution
+            : challenge?.promptCode?.css
         }
         js={
-          challenge.languageToWrite === "jsx" ||
-          challenge.languageToWrite === "javascript"
-            ? challenge.solution
-            : challenge.promptCode.js
+          challenge?.languageToWrite === "jsx" ||
+          challenge?.languageToWrite === "javascript"
+            ? challenge?.solution
+            : challenge?.promptCode?.js
         }
-        componentName={challenge?.reactConfig.componentName}
+        componentName={challenge?.reactConfig?.componentName}
         isReact={challenge?.languageToWrite === "jsx"}
       />
     </div>

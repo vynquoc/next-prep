@@ -38,6 +38,7 @@
 .tagContainer {
     display: flex;
     align-items: center;
+    gap: 3px;
     margin: 0 30px;
 }
 

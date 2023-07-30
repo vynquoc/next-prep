@@ -8,10 +8,32 @@
     z-index: 1000;
 }
 .modal {
-    position: fixed;
+    position: absolute;
+    font-family: var(--primary-font);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #fff;
     z-index: 1000;
+    padding: 1rem;
+    border-radius: 5px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 3s;
 }
+
+.modal.isOpen {
+    visibility: visible;
+    opacity: 100%;
+}
+.closeBtn {
+    border: none;
+    display: flex;
+    background-color: white;
+    cursor: pointer;
+    margin-left: auto;
+    margin-bottom: 20px;
+}
+
+
+
