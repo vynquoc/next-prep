@@ -18,9 +18,22 @@ const ChallengeDemo = ({ challenge }: Props) => {
         onTabChange={(tab) => setCurrentTab(tab)}
       />
       <LivePreview
-        html={challenge?.promptCode.html}
-        js={challenge?.promptCode.js}
-        css={challenge?.promptCode.css}
+        html={
+          challenge.languageToWrite === "html"
+            ? challenge.solution
+            : challenge.promptCode.html
+        }
+        css={
+          challenge.languageToWrite === "css"
+            ? challenge.solution
+            : challenge.promptCode.css
+        }
+        js={
+          challenge.languageToWrite === "jsx" ||
+          challenge.languageToWrite === "javascript"
+            ? challenge.solution
+            : challenge.promptCode.js
+        }
         componentName={challenge?.reactConfig.componentName}
         isReact={challenge?.languageToWrite === "jsx"}
       />

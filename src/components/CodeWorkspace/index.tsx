@@ -1,13 +1,20 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
-import { User } from "next-auth";
-import CustomSplit from "../Split";
 import styles from "./styles.module.css";
-import Editor from "../Editor";
-import LivePreview from "../LivePreview";
-import TabBar from "../TabBar";
+import React, { useEffect, useState } from "react";
+import { User } from "next-auth";
 import { ChallengeInterface, UserCodeInterface } from "@/types/types";
 import { debounce } from "@/utils";
+
+import Editor from "../Editor";
+import LivePreview from "../LivePreview";
+import CustomSplit from "../Split";
+import TabBar from "../TabBar";
+import LoadingIndicator from "../LoadingIndicator";
+import Icon from "../Icon";
+import Tooltip from "../Tooltip";
+
+import icDone from "@/public/ic_check_white.svg";
+import icReset from "@/public/ic_reset.svg";
 
 type Props = {
   isReact?: boolean;
@@ -48,27 +55,6 @@ const CodeWorkspace = ({ isReact, challenge, userCode, user }: Props) => {
       challenge?.promptCode?.js
   );
 
-  const updateUserCode = useCallback(async (code: string) => {
-    await fetch("/api/user-code", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ id: userCode?.id, code: code }),
-    });
-    setIsLoading(false);
-  }, []);
-
-  const createUserCode = async (code: string) => {
-    await fetch("/api/user-code", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ challenge: challenge?.slug, code: code }),
-    });
-  };
-
   useEffect(() => {
     setIsLoading(false);
     if (user) {
@@ -88,18 +74,66 @@ const CodeWorkspace = ({ isReact, challenge, userCode, user }: Props) => {
     }
   }, [html, js, css]);
 
+  const handleReset = () => {
+    switch (challenge?.languageToWrite) {
+      case "jsx" || "javascript":
+        setJs(challenge.promptCode?.js);
+        break;
+      case "html":
+        setHtml(challenge.promptCode?.html);
+        break;
+      case "css":
+        setCss(challenge.promptCode?.css);
+        break;
+    }
+  };
+
+  const updateUserCode = async (code: string) => {
+    await fetch("/api/user-code", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: userCode?.id, code: code }),
+    });
+    setIsLoading(false);
+  };
+
+  const createUserCode = async (code: string) => {
+    await fetch("/api/user-code", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ challenge: challenge?.slug, code: code }),
+    });
+  };
+
   const debouncedSetHtml = debounce(setHtml, delay);
   const debouncedSetJs = debounce(setJs, delay);
   const debouncedSetCss = debounce(setCss, delay);
 
   return (
     <div style={{ height: "100vh" }}>
-      <TabBar
-        tabs={tabs}
-        onTabChange={(tab: string) => setCurrentTab(tab)}
-        currentTab={currentTab}
-        isLoading={isLoading}
-      />
+      <div className={styles.header}>
+        <TabBar
+          tabs={tabs}
+          onTabChange={(tab: string) => setCurrentTab(tab)}
+          currentTab={currentTab}
+        />
+        <div className={styles.rightTab}>
+          <Tooltip text="Reset default code">
+            <div className={styles.reset} onClick={handleReset}>
+              <Icon src={icReset} width={25} height={25} />
+            </div>
+          </Tooltip>
+          {isLoading ? (
+            <LoadingIndicator width={25} />
+          ) : (
+            <Icon src={icDone} width={25} height={25} />
+          )}
+        </div>
+      </div>
 
       <CustomSplit
         direction="vertical"

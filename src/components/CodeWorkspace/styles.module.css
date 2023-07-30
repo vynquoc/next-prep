@@ -9,3 +9,28 @@
     font-weight: 500;
     background-color: rgb(219, 127, 127);
 }
+
+.header {
+    display: flex;
+    background-color: var(--primary-color);
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 12px;
+}
+
+.rightTab {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.reset {
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    border-radius: 3px;
+}
+.reset:hover {
+    background-color: var(--primary-color-dark);
+}
+
