@@ -2,14 +2,16 @@
 
 import { useEffect, useState } from "react";
 import styles from "./styles.module.css";
-import ChoiceList from "@/components/ChoiceList";
+import { convertTime } from "@/utils";
 import { QuizInterface } from "@/types/types";
+import ChoiceList from "@/components/ChoiceList";
+import Modal from "../Modal";
 import Editor from "../Editor";
 import Icon from "../Icon";
-import { convertTime } from "@/utils";
 import icLeft from "@/public/ic_arrow_left.svg";
 import icRight from "@/public/ic_arrow_right.svg";
 import icClock from "@/public/ic_clock.svg";
+import icClockUp from "@/public/ic_clock_up.svg";
 import useTimer from "@/hooks/useTimer";
 
 type Props = {
@@ -22,22 +24,11 @@ const duration = 45; //minutes
 const Quiz = ({ quizList, onFinish }: Props) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [answers, setAnwsers] = useState<{ [key: number]: number[] }>({});
+
   const { timeRemaining, start } = useTimer(duration);
   useEffect(() => {
     start();
   }, []);
-
-  useEffect(() => {
-    if (timeRemaining >= 1) return;
-    const timerId = setTimeout(() => {
-      onFinish({
-        quizList: quizList,
-        userAnswers: answers,
-        finishTime: duration * 60,
-      });
-    }, 1000);
-    return () => clearTimeout(timerId);
-  }, [timeRemaining]);
 
   const handleSelectQuestion = (index: number) => {
     setSelectedIndex(index);
@@ -74,6 +65,25 @@ const Quiz = ({ quizList, onFinish }: Props) => {
   const displayTime = convertTime(timeRemaining);
   return (
     <div className={styles.container}>
+      <Modal isOpen={timeRemaining <= 0}>
+        <div className={styles.modalContent}>
+          <Icon src={icClockUp} width={50} height={50} />
+          <p>Time Up !!!</p>
+
+          <button
+            className="button"
+            onClick={() =>
+              onFinish({
+                quizList: quizList,
+                userAnswers: answers,
+                finishTime: duration * 60,
+              })
+            }
+          >
+            Result
+          </button>
+        </div>
+      </Modal>
       <div className={styles.quizListContainer}>
         <p style={{ minWidth: 140 }}>Progress: {progress}</p>
         <ul className={styles.progressBar}>

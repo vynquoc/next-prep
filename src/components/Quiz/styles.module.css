@@ -147,3 +147,17 @@
     padding: 15px 10px;
     margin-top: 10px;
 }
+
+.modalContent {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+}
+
+.modalContent p {
+    margin-bottom: 30px;
+    font-size: 1.5rem;
+    font-weight: 500;
+}

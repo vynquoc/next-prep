@@ -9,7 +9,7 @@ type Props = {
   isOpen: boolean;
   children: React.ReactNode;
   className?: string;
-  onClose: () => void;
+  onClose?: () => void;
 };
 
 const Modal = ({ isOpen, onClose, className, children }: Props) => {
@@ -28,9 +28,11 @@ const Modal = ({ isOpen, onClose, className, children }: Props) => {
                 : `${styles.modal} ${styles.isOpen} ${className}`
             }
           >
-            <button onClick={onClose} className={styles.closeBtn}>
-              <Icon src={icClose} width={30} height={30} />
-            </button>
+            {onClose && (
+              <button onClick={onClose} className={styles.closeBtn}>
+                <Icon src={icClose} width={30} height={30} />
+              </button>
+            )}
             <div>{children}</div>
           </div>
         </>,

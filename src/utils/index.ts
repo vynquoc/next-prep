@@ -39,6 +39,7 @@ export function deepEqual<T>(array1: T[], array2: T[]): boolean {
 }
 
 export const convertTime = (seconds: number) => {
+  if (seconds < 0) return "00:00";
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = seconds % 60;
 
