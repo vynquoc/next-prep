@@ -44,6 +44,11 @@ const CodeWorkspace = ({ isReact, challenge, userCode, user }: Props) => {
   const [userCodeId, setUserCodeId] = useState(userCode?.id);
   const [isLoading, setIsLoading] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(user ? false : true);
+  const [output, setOutput] = useState<any>({
+    html: challenge?.promptCode?.html,
+    css: challenge?.promptCode?.css,
+    js: challenge?.promptCode?.js,
+  });
   const [html, setHtml] = useState(
     (challenge?.languageToWrite === "html" && userCode?.code) ||
       challenge?.promptCode?.html
@@ -75,31 +80,31 @@ const CodeWorkspace = ({ isReact, challenge, userCode, user }: Props) => {
   }, []);
 
   useEffect(() => {
-    if (user && userCodeId) {
-      let timer: NodeJS.Timeout;
+    let timer: NodeJS.Timeout;
 
-      const handleDebouncedChange = () => {
-        setIsLoading(true);
-        let updatedCode;
-        if (challenge?.languageToWrite === "css") {
-          updatedCode = css;
-        } else if (challenge?.languageToWrite === "html") {
-          updatedCode = html;
-        } else {
-          updatedCode = js;
-        }
-        updateUserCode(updatedCode as string);
-        setIsLoading(false);
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 500);
-      };
-
+    const handleDebouncedChange = () => {
       setIsLoading(true);
-      timer = setTimeout(handleDebouncedChange, 800);
+      let updatedCode;
+      if (challenge?.languageToWrite === "css") {
+        updatedCode = css;
+      } else if (challenge?.languageToWrite === "html") {
+        updatedCode = html;
+      } else {
+        updatedCode = js;
+      }
+      if (user && userCodeId) {
+        updateUserCode(updatedCode as string);
+      }
+      setOutput({ html: html, css: css, js: js });
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 500);
+    };
 
-      return () => clearTimeout(timer);
-    }
+    setIsLoading(true);
+    timer = setTimeout(handleDebouncedChange, 800);
+
+    return () => clearTimeout(timer);
   }, [css, html, js]);
 
   const handleReset = () => {
@@ -216,9 +221,9 @@ const CodeWorkspace = ({ isReact, challenge, userCode, user }: Props) => {
           )}
         </div>
         <UserOutput
-          html={html}
-          css={css}
-          js={js}
+          html={output.html}
+          css={output.css}
+          js={output.js}
           isReact={isReact}
           componentName={challenge?.reactConfig?.componentName}
         />
