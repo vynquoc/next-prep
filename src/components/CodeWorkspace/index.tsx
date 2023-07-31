@@ -3,7 +3,6 @@ import styles from "./styles.module.css";
 import React, { useEffect, useState } from "react";
 import { User } from "next-auth";
 import { ChallengeInterface, UserCodeInterface } from "@/types/types";
-import { debounce } from "@/utils";
 
 import Editor from "../Editor";
 import CustomSplit from "../Split";
@@ -27,7 +26,6 @@ type Props = {
 };
 
 const tabs = ["JAVASCRIPT", "CSS", "HTML"];
-const delay = 500;
 
 const CodeWorkspace = ({ isReact, challenge, userCode, user }: Props) => {
   let tab = tabs[0];
@@ -42,7 +40,8 @@ const CodeWorkspace = ({ isReact, challenge, userCode, user }: Props) => {
       break;
   }
   const [currentTab, setCurrentTab] = useState(tab);
-  const [isLoading, setIsLoading] = useState(true);
+  const [userCodeId, setUserCodeId] = useState(userCode?.id);
+  const [isLoading, setIsLoading] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(user ? false : true);
   const pathname = usePathname();
   const [html, setHtml] = useState(
@@ -61,23 +60,47 @@ const CodeWorkspace = ({ isReact, challenge, userCode, user }: Props) => {
   );
 
   useEffect(() => {
-    setIsLoading(false);
-    if (user) {
-      if (!userCode) {
-        createUserCode(js as string);
-      } else {
-        const lang = challenge?.languageToWrite;
-        setIsLoading(true);
+    if (user && !userCodeId) {
+      const lang = challenge?.languageToWrite;
+      if (!userCodeId) {
         if (lang === "css") {
-          updateUserCode(css as string);
-        } else if (lang === "html") {
-          updateUserCode(html as string);
+          createUserCode(challenge?.promptCode?.css as string);
+        } else if (lang === html) {
+          createUserCode(challenge?.promptCode?.html as string);
         } else {
-          updateUserCode(js as string);
+          createUserCode(challenge?.promptCode?.js as string);
         }
       }
     }
-  }, [html, js, css]);
+  }, []);
+
+  useEffect(() => {
+    if (user && userCodeId) {
+      let timer: NodeJS.Timeout;
+
+      const handleDebouncedChange = () => {
+        setIsLoading(true);
+        let updatedCode;
+        if (challenge?.languageToWrite === "css") {
+          updatedCode = css;
+        } else if (challenge?.languageToWrite === "html") {
+          updatedCode = html;
+        } else {
+          updatedCode = js;
+        }
+        updateUserCode(updatedCode as string);
+        setIsLoading(false);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 500);
+      };
+
+      setIsLoading(true);
+      timer = setTimeout(handleDebouncedChange, 800);
+
+      return () => clearTimeout(timer);
+    }
+  }, [css, html, js]);
 
   const handleReset = () => {
     switch (challenge?.languageToWrite) {
@@ -99,24 +122,32 @@ const CodeWorkspace = ({ isReact, challenge, userCode, user }: Props) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ id: userCode?.id, code: code }),
+      body: JSON.stringify({ id: userCodeId, code: code }),
     });
     setIsLoading(false);
   };
 
   const createUserCode = async (code: string) => {
-    await fetch("/api/user-code", {
+    const response = await fetch("/api/user-code", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ challenge: challenge?.slug, code: code }),
     });
+    const userCode = await response.json();
+    setUserCodeId(userCode?.id);
   };
 
-  const debouncedSetHtml = debounce(setHtml, delay);
-  const debouncedSetJs = debounce(setJs, delay);
-  const debouncedSetCss = debounce(setCss, delay);
+  const handleChange = (lang: string, value: string) => {
+    if (lang === "css") {
+      setCss(value);
+    } else if (lang === "html") {
+      setHtml(value);
+    } else {
+      setJs(value);
+    }
+  };
 
   return (
     <div style={{ height: "100vh" }}>
@@ -156,16 +187,19 @@ const CodeWorkspace = ({ isReact, challenge, userCode, user }: Props) => {
         sizes={[50, 50]}
         style={{ height: "calc(100vh - 90px)" }}
       >
-        <div style={{ overflow: "auto" }}>
+        <div style={{ overflow: "auto", height: "100%" }}>
           {currentTab === "JAVASCRIPT" && (
-            <Editor code={js} onChange={debouncedSetJs} />
+            <Editor
+              code={js}
+              onChange={(value: string) => handleChange("js", value)}
+            />
           )}
           {currentTab === "CSS" && (
             <Editor
               language="css"
               code={css}
               editable={challenge?.languageToWrite === "css"}
-              onChange={debouncedSetCss}
+              onChange={(value: string) => handleChange("css", value)}
             />
           )}
           {currentTab === "HTML" && (
@@ -173,7 +207,7 @@ const CodeWorkspace = ({ isReact, challenge, userCode, user }: Props) => {
               language="html"
               editable={challenge?.languageToWrite === "html"}
               code={html}
-              onChange={debouncedSetHtml}
+              onChange={(value: string) => handleChange("html", value)}
             />
           )}
         </div>
