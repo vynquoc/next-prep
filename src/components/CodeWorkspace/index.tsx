@@ -39,11 +39,11 @@ const CodeWorkspace = ({ isReact, challenge, userCode, user }: Props) => {
       tab = tabs[0];
       break;
   }
+  const pathname = usePathname();
   const [currentTab, setCurrentTab] = useState(tab);
   const [userCodeId, setUserCodeId] = useState(userCode?.id);
   const [isLoading, setIsLoading] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(user ? false : true);
-  const pathname = usePathname();
   const [html, setHtml] = useState(
     (challenge?.languageToWrite === "html" && userCode?.code) ||
       challenge?.promptCode?.html
@@ -116,6 +116,16 @@ const CodeWorkspace = ({ isReact, challenge, userCode, user }: Props) => {
     }
   };
 
+  const handleChange = (lang: string, value: string) => {
+    if (lang === "css") {
+      setCss(value);
+    } else if (lang === "html") {
+      setHtml(value);
+    } else {
+      setJs(value);
+    }
+  };
+
   const updateUserCode = async (code: string) => {
     await fetch("/api/user-code", {
       method: "PATCH",
@@ -137,16 +147,6 @@ const CodeWorkspace = ({ isReact, challenge, userCode, user }: Props) => {
     });
     const userCode = await response.json();
     setUserCodeId(userCode?.id);
-  };
-
-  const handleChange = (lang: string, value: string) => {
-    if (lang === "css") {
-      setCss(value);
-    } else if (lang === "html") {
-      setHtml(value);
-    } else {
-      setJs(value);
-    }
   };
 
   return (
@@ -174,11 +174,15 @@ const CodeWorkspace = ({ isReact, challenge, userCode, user }: Props) => {
               <Icon src={icReset} width={25} height={25} />
             </div>
           </Tooltip>
-          {isLoading ? (
-            <LoadingIndicator width={25} />
-          ) : (
-            <Icon src={icDone} width={25} height={25} />
-          )}
+          {user ? (
+            isLoading ? (
+              <LoadingIndicator width={25} />
+            ) : (
+              <Tooltip text="Code saved">
+                <Icon src={icDone} width={25} height={25} />
+              </Tooltip>
+            )
+          ) : null}
         </div>
       </div>
 
