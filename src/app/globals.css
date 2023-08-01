@@ -89,6 +89,7 @@ main {
 .markdown code {
   padding: 0 3px;
   border-radius: 2px;
+  background-color: #343941;
 }
 
 .markdown pre {

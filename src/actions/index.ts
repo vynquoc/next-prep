@@ -16,6 +16,7 @@ export const addTriviaQuestion = async (
       category: category,
     },
   });
+  revalidatePath("/admin/trivia-questions");
 };
 
 export const updateTriviaQuestion = async (

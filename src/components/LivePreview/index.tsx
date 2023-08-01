@@ -30,7 +30,7 @@ const LivePreview = ({
         </style>
         <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
         <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-        <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
       </head>
       <body>
         <div id="react-root"></div>
