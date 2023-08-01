@@ -28,13 +28,14 @@ type Props = {
 const tabs = ["JAVASCRIPT", "CSS", "HTML"];
 
 const CodeWorkspace = ({ isReact, challenge, userCode, user }: Props) => {
-  let tab = tabs[0];
+  let tab;
   switch (challenge?.languageToWrite) {
     case "css":
       tab = tabs[1];
       break;
     case "html":
       tab = tabs[2];
+      break;
     default:
       tab = tabs[0];
       break;
@@ -199,6 +200,10 @@ const CodeWorkspace = ({ isReact, challenge, userCode, user }: Props) => {
         <div style={{ overflow: "auto", height: "100%" }}>
           {currentTab === "JAVASCRIPT" && (
             <Editor
+              editable={
+                challenge?.languageToWrite === "js" ||
+                challenge?.languageToWrite === "jsx"
+              }
               code={js}
               onChange={(value: string) => handleChange("js", value)}
             />

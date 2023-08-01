@@ -219,12 +219,14 @@ const ChallengeForm = ({ challenge, mode }: Props) => {
           options={difficultyOptions}
         />
       </FormGroup>
-      <FormField
-        width="100%"
-        title="Component Name"
-        state={form.reactConfig.componentName}
-        onFieldChange={(value) => handleComponentName(value)}
-      />
+      {form.languageToWrite === "jsx" && (
+        <FormField
+          width="100%"
+          title="Component Name"
+          state={form.reactConfig.componentName}
+          onFieldChange={(value) => handleComponentName(value)}
+        />
+      )}
       <FormGroup gap={60}>
         {tagOptions.map((option) => (
           <FormField
