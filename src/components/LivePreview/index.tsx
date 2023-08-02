@@ -48,7 +48,6 @@ const LivePreview = ({
           <style>${css}</style>
         </head>
         <body>
-          <div id="root"></div>
           ${html}
         </body>
         <script>

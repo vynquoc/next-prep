@@ -201,7 +201,7 @@ const CodeWorkspace = ({ isReact, challenge, userCode, user }: Props) => {
           {currentTab === "JAVASCRIPT" && (
             <Editor
               editable={
-                challenge?.languageToWrite === "js" ||
+                challenge?.languageToWrite === "javascript" ||
                 challenge?.languageToWrite === "jsx"
               }
               code={js}

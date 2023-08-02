@@ -20,7 +20,7 @@ type Props = {
 const icons = {
   html: { icon: icHTML, width: 15, height: 16 },
   css: { icon: icCss, width: 18, height: 18 },
-  javascript: { icon: icJs, width: 13, height: 13 },
+  js: { icon: icJs, width: 13, height: 13 },
   react: { icon: icReact, width: 15, height: 16 },
 };
 
