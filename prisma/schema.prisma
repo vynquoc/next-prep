@@ -74,7 +74,7 @@ model Quiz {
   kind           Kind    @default(single)
   choices        Json
   correctAnswers Json
-  codeSnippet    String?
+  codeSnippet    String? @db.Text
 }
 
 enum Kind {

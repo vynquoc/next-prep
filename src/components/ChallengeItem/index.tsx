@@ -51,7 +51,17 @@ const ChallengeItem = ({ challenge }: Props) => {
         <div className={styles.iconContainer}>
           <div style={{ display: "flex", alignItems: "center" }}>
             <Icon src={icFlame} width={18} height={18} />
-            <span className={styles.challengeDifficult}>
+            <span
+              className={styles.challengeDifficult}
+              style={{
+                color:
+                  challenge.difficulty === "medium"
+                    ? "orange"
+                    : challenge.difficulty === "easy"
+                    ? "green"
+                    : "red",
+              }}
+            >
               {`${challenge.difficulty
                 ?.charAt(0)
                 .toUpperCase()}${challenge.difficulty?.slice(1)}`}
