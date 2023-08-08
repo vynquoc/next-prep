@@ -110,18 +110,16 @@ const CodeWorkspace = ({ isReact, challenge, userCode, user }: Props) => {
 
   const handleReset = () => {
     switch (challenge?.languageToWrite) {
-      case "jsx" || "javascript":
-        setJs(challenge.promptCode?.js);
-        break;
       case "html":
         setHtml(challenge.promptCode?.html);
         break;
       case "css":
         setCss(challenge.promptCode?.css);
         break;
+      default:
+        setJs(challenge?.promptCode?.js);
     }
   };
-
   const handleChange = (lang: string, value: string) => {
     if (lang === "css") {
       setCss(value);
