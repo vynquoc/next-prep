@@ -57,13 +57,13 @@ const LivePreview = ({
     `;
 
   return (
-    <div style={{ backgroundColor: backgroundColor, ...style }}>
+    <div style={{ backgroundColor: backgroundColor, height: "100%", ...style }}>
       {isReact ? (
         <iframe
           srcDoc={iframeReact}
           sandbox="allow-scripts"
           width="100%"
-          height="300px"
+          height="100%"
           frameBorder="0"
         />
       ) : (
@@ -71,7 +71,7 @@ const LivePreview = ({
           srcDoc={iframeJs}
           sandbox="allow-scripts"
           width="100%"
-          height="300px"
+          height="100%"
           frameBorder="0"
         />
       )}
