@@ -16,9 +16,18 @@ const Navbar = async () => {
       </Link>
       <ul className={styles.linksWrapper}>
         {user?.role === "admin" && (
-          <Link href="/admin" className={styles.link}>
-            ADMIN
-          </Link>
+          <>
+            <Link href="/admin" className={styles.link}>
+              ADMIN
+            </Link>
+            <>
+              {NavLinks.map((link) => (
+                <Link href={link.href} key={link.text} className={styles.link}>
+                  {link.text}
+                </Link>
+              ))}
+            </>
+          </>
         )}
         {user?.role === "user" && (
           <>
