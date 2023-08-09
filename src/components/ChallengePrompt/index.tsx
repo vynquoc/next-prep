@@ -10,7 +10,6 @@ type Props = {
 };
 
 const ChallengePrompt = ({ challenge }: Props) => {
-  console.log(challenge);
   return (
     <div className={styles.promptContainer}>
       <div className={styles.category}>
