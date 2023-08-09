@@ -18,7 +18,8 @@ const ChallengePrompt = ({ challenge }: Props) => {
       </div>
       <h2 className={styles.name}>{challenge?.name}</h2>
       {challenge.languageToWrite !== "css" &&
-        challenge.type !== "Javascript Utilities" && (
+        challenge.type !== "Javascript Utilities" &&
+        challenge.type !== "React Hooks" && (
           <div className={styles.note}>
             <div className={styles.iconWrapper}>
               <Image src={icInfor} alt="infor" className={styles.icon} />
