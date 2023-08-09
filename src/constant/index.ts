@@ -16,6 +16,10 @@ export const categoryOptions = [
     value: "React Components",
   },
   {
+    displayText: "React Hooks",
+    value: "React Hooks",
+  },
+  {
     displayText: "Javascript Utilities",
     value: "Javascript Utilities",
   },
@@ -33,6 +37,10 @@ export const typeOptions = [
   {
     displayText: "Javascript Utilities",
     value: "Javascript Utilities",
+  },
+  {
+    displayText: "React Hooks",
+    value: "React Hooks",
   },
 ];
 

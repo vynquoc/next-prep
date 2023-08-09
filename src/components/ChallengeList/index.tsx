@@ -9,6 +9,7 @@ import Filter from "../Filter";
 import icJs from "@/public/ic_js.svg";
 import icInterface from "@/public/ic_interface.svg";
 import icSad from "@/public/ic_sad.svg";
+import icHook from "@/public/ic_hooks.svg";
 
 type Props = {
   challengeList: ChallengeInterface[];
@@ -24,6 +25,11 @@ const tagsOption = [
     icon: icInterface,
     text: "User Interface",
     value: "User Interface",
+  },
+  {
+    icon: icHook,
+    text: "React Hooks",
+    value: "React Hooks",
   },
 ];
 
