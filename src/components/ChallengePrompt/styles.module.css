@@ -9,6 +9,8 @@
 
 .name {
     margin-bottom: 0.8rem;
+    color: var(--primary-color);
+    text-decoration: underline;
 }
 
 .category {

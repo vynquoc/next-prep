@@ -10,6 +10,7 @@ type Props = {
 };
 
 const ChallengePrompt = ({ challenge }: Props) => {
+  console.log(challenge);
   return (
     <div className={styles.promptContainer}>
       <div className={styles.category}>
@@ -17,18 +18,18 @@ const ChallengePrompt = ({ challenge }: Props) => {
         <p>{challenge?.category}</p>
       </div>
       <h2 className={styles.name}>{challenge?.name}</h2>
-      {challenge.languageToWrite !== "css" && (
-        <div className={styles.note}>
-          <div className={styles.iconWrapper}>
-            <Image src={icInfor} alt="infor" className={styles.icon} />
+      {challenge.languageToWrite !== "css" &&
+        challenge.type !== "Javascript Utilities" && (
+          <div className={styles.note}>
+            <div className={styles.iconWrapper}>
+              <Image src={icInfor} alt="infor" className={styles.icon} />
+            </div>
+            <p>
+              This challenge has pre-written CSS code, you can see at the CSS
+              tab.
+            </p>
           </div>
-
-          <p>
-            This challenge has pre-written CSS code, you can access but do not
-            modify it.
-          </p>
-        </div>
-      )}
+        )}
       <ReactMarkdown className="markdown">{challenge?.prompt}</ReactMarkdown>
       <h3 style={{ margin: "10px 0" }}>Hints</h3>
       {challenge?.hints?.map((hint: string, index: number) => (

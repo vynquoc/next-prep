@@ -37,7 +37,7 @@ const ChallengePage = async ({
         backgroundColor: "var(--primary-color-dark)",
       }}
     >
-      <CustomSplit sizes={[40, 60]} minSize={100} className="split">
+      <CustomSplit sizes={[50, 50]} minSize={100} className="split">
         <ChallengeDescription challenge={combinedChallenge} />
         <CodeWorkspace
           user={user}
