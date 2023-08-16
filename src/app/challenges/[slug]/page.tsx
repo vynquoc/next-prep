@@ -33,7 +33,7 @@ const ChallengePage = async ({
   return (
     <div
       style={{
-        padding: 15,
+        padding: "15px 10px",
         backgroundColor: "var(--primary-color-dark)",
       }}
     >

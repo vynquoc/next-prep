@@ -31,6 +31,7 @@ const ChallengePrompt = ({ challenge }: Props) => {
           </div>
         )}
       <ReactMarkdown className="markdown">{challenge?.prompt}</ReactMarkdown>
+
       <h3 style={{ margin: "10px 0" }}>Hints</h3>
       {challenge?.hints?.map((hint: string, index: number) => (
         <Accordion key={index + hint} title={`Hint ${index + 1}`}>
